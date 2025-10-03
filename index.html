@@ -62,25 +62,158 @@
     <section class="coffee-categories" id="coffee">
       <div class="container">
         <h2 class="section-title">LUWA KAHVE ÇEŞİTLERİ</h2>
-        <div class="categories-grid">
-          <div class="category-card">
-            <div class="category-icon-tup"></div>
-            <h3>TÜP GRANÜL KAHVE</h3>
+        <div class="vertical-carousel">
+          <div class="carousel-nav">
+            <button class="nav-btn prev-btn" onclick="prevSlide()">▲</button>
+            <div class="desktop-nav-dots">
+              <span class="dot active" onclick="currentSlide(1)"></span>
+              <span class="dot" onclick="currentSlide(2)"></span>
+              <span class="dot" onclick="currentSlide(3)"></span>
+              <span class="dot" onclick="currentSlide(4)"></span>
+            </div>
+            <button class="nav-btn next-btn" onclick="nextSlide()">▼</button>
           </div>
+          <div class="carousel-content">
+            <div class="carousel-slides" id="verticalCarousel">
+              <!-- Slide 1 -->
+              <div class="carousel-slide active" data-product="tup">
+                <div class="slide-text">
+                  <h3 id="product-title">LUWA TÜP KAHVE</h3>
+                  <p id="product-details">
+                    Lüks, Pratik ve Cam Ambalajda Çevreci Tek Porsiyonluk Kahve
+                    Deneyimi Sıradan poşet kahvelere bir alternatif arayan,
+                    kaliteye önem veren kahve tutkunları için... Luwa Coffee,
+                    anlık kahve keyfinizi lüks, yüksek kaliteli ve çevreye
+                    duyarlı bir deneyime dönüştürüyor. Premium İçerik, Mükemmel
+                    Porsiyon Biz, pratikliğin kaliteden ödün vermek anlamına
+                    gelmediğine inanıyoruz.
+                  </p>
+                  <div class="slide-features">
+                    <span
+                      class="feature clickable"
+                      data-detail="Premium kahve çekirdeklerinden üretilmiş, özel işlem görmüş granül kahve. Her fincan için mükemmel çözünürlük garantisi."
+                      >Premium Kalite</span
+                    >
+                    <span
+                      class="feature clickable"
+                      data-detail="Şık ve modern cam tüp tasarımı ile evde, ofiste veya otelde lüks bir ikram deneyimi sunar. Hijyenik ve pratik kullanım."
+                      >Şık Tasarım</span
+                    >
+                    <span
+                      class="feature clickable"
+                      data-detail="Hızlı çözünme özelliği sayesinde sıcak su ile karıştırmanız yeterli. Pratik ve kolay hazırlama imkanı."
+                      >Kolay Hazırlık</span
+                    >
+                  </div>
+                </div>
+                <div class="slide-image">
+                  <img src="assets/tup.png" alt="Tüp Granül Kahve" />
+                </div>
+              </div>
 
-          <div class="category-card">
-            <div class="category-icon-kavanoz"></div>
-            <h3>KAVANOZDA GRANÜL KAHVE</h3>
+              <!-- Slide 2 -->
+              <div class="carousel-slide" data-product="kavanoz">
+                <div class="slide-text">
+                  <h3 id="product-title-2">LUWA KAVANOZ KAHVE</h3>
+                  <p id="product-details-2">
+                    Ekonomik ve pratik kavanoz ambalajında sunulan granül
+                    kahvemiz, günlük kullanım için idealdir. Geniş kapasitesi
+                    ile uzun süre taze kalır.
+                  </p>
+                  <div class="slide-features">
+                    <span
+                      class="feature clickable"
+                      data-detail="100g ve 200g seçenekleri ile farklı ihtiyaçlara uygun ekonomik paketleme. Aileniz için ideal boyutlarda."
+                      >Ekonomik Paket</span
+                    >
+                    <span
+                      class="feature clickable"
+                      data-detail="Hava geçirmez kavanoz sayesinde kahvenin tazeliği ve aroması uzun süre korunur. Nem ve hava almaz."
+                      >Uzun Tazelik</span
+                    >
+                    <span
+                      class="feature clickable"
+                      data-detail="Geniş ağızlı kavanoz tasarımı ile kolay kullanım. Kaşık ile rahatlıkla alabilir, istediğiniz miktarda hazırlayabilirsiniz."
+                      >Kolay Kullanım</span
+                    >
+                  </div>
+                </div>
+                <div class="slide-image">
+                  <img src="assets/100mg.png" alt="Kavanoz Granül Kahve" />
+                </div>
+              </div>
+
+              <!-- Slide 3 -->
+              <div class="carousel-slide" data-product="kapsul">
+                <div class="slide-text">
+                  <h3 id="product-title-3">LUWA KAPSÜL KAHVE</h3>
+                  <p id="product-details-3">
+                    Modern kahve makineleri için özel olarak tasarlanmış kapsül
+                    kahvemiz, her kapsülde mükemmel ölçülerde kahve deneyimi
+                    sunar.
+                  </p>
+                  <div class="slide-features">
+                    <span
+                      class="feature clickable"
+                      data-detail="Her kapsül tek kullanımlık ve hijyenik ambalajda. Taze kahve aroması her kapsülde korunur. Kirlenme riski yoktur."
+                      >Hijyenik Kapsül</span
+                    >
+                    <span
+                      class="feature clickable"
+                      data-detail="Çoğu kapsül kahve makinesi ile uyumlu. Nespresso, Dolce Gusto ve benzeri makinelerle mükemmel uyum."
+                      >Makine Uyumlu</span
+                    >
+                    <span
+                      class="feature clickable"
+                      data-detail="Her kapsülde mükemmel ölçülerde kahve. Tek tuşla profesyonel kalitede kahve hazırlama imkanı."
+                      >Tek Tuş Hazırlık</span
+                    >
+                  </div>
+                </div>
+                <div class="slide-image">
+                  <img src="assets/kapsul.png" alt="Kapsül Kahve" />
+                </div>
+              </div>
+
+              <!-- Slide 4 -->
+              <div class="carousel-slide" data-product="sut">
+                <div class="slide-text">
+                  <h3 id="product-title-4">LUWA SÜT TOZU</h3>
+                  <p id="product-details-4">
+                    Kahvenizi kremsi ve lezzetli hale getiren premium süt
+                    tozumuz, doğal süt aroması ile kahve deneyiminizi
+                    zenginleştirir.
+                  </p>
+                  <div class="slide-features">
+                    <span
+                      class="feature clickable"
+                      data-detail="%100 doğal süt tozundan üretilmiş, yapay tatlandırıcı ve koruyucu içermez. Saf süt lezzeti."
+                      >Doğal İçerik</span
+                    >
+                    <span
+                      class="feature clickable"
+                      data-detail="Kahvenize eklediğinizde kremsi ve yumuşak bir doku kazandırır. Barista kalitesinde köpük oluşturur."
+                      >Kremsi Doku</span
+                    >
+                    <span
+                      class="feature clickable"
+                      data-detail="Sıcak ve soğuk içeceklerde mükemmel çözünürlük. Topaklanma yapmaz, homojen karışım sağlar."
+                      >Mükemmel Çözünme</span
+                    >
+                  </div>
+                </div>
+                <div class="slide-image">
+                  <img src="assets/sut.png" alt="Süt Tozu" />
+                </div>
+              </div>
+            </div>
+            <div class="swipe-indicator">← Kaydırın →</div>
           </div>
-
-          <div class="category-card">
-            <div class="category-icon-kapsul"></div>
-            <h3>KAPSÜL KAHVE</h3>
-          </div>
-
-          <div class="category-card">
-            <div class="category-icon-sut"></div>
-            <h3>SÜT TOZU</h3>
+          <div class="mobile-carousel-dots">
+            <span class="dot active" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
           </div>
         </div>
       </div>
@@ -374,9 +507,8 @@
           header.classList.remove("shrunk");
         }
       });
-
-      // Hamburger menu toggle
       document.addEventListener("DOMContentLoaded", function () {
+        // Hamburger menu toggle
         const hamburger = document.querySelector(".hamburger");
         const navMenu = document.querySelector(".nav-menu");
         const navLinks = document.querySelectorAll(".nav-menu a");
@@ -549,6 +681,251 @@
             }
           }
         });
+      });
+
+      // Vertical Carousel Functions
+      let currentSlideIndex = 0;
+      const slides = document.querySelectorAll(".carousel-slide");
+      const desktopDots = document.querySelectorAll(".desktop-nav-dots .dot");
+      const mobileDots = document.querySelectorAll(
+        ".mobile-carousel-dots .dot"
+      );
+      const totalSlides = slides.length;
+
+      function showSlide(index) {
+        // Remove active class from all slides and dots
+        slides.forEach((slide) => slide.classList.remove("active"));
+        desktopDots.forEach((dot) => dot.classList.remove("active"));
+        mobileDots.forEach((dot) => dot.classList.remove("active"));
+
+        // Add active class to current slide and both desktop and mobile dots
+        if (slides[index]) {
+          slides[index].classList.add("active");
+        }
+        if (desktopDots[index]) {
+          desktopDots[index].classList.add("active");
+        }
+        if (mobileDots[index]) {
+          mobileDots[index].classList.add("active");
+        }
+      }
+
+      function nextSlide() {
+        currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+        showSlide(currentSlideIndex);
+      }
+
+      function prevSlide() {
+        currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+        showSlide(currentSlideIndex);
+      }
+
+      function currentSlide(index) {
+        currentSlideIndex = index - 1;
+        showSlide(currentSlideIndex);
+      }
+
+      // Clickable features functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const clickableFeatures =
+          document.querySelectorAll(".feature.clickable");
+
+        clickableFeatures.forEach((feature) => {
+          feature.addEventListener("click", function () {
+            const detail = this.getAttribute("data-detail");
+            const currentSlide = this.closest(".carousel-slide");
+            const productDetailsElement = currentSlide.querySelector(
+              '[id^="product-details"]'
+            );
+
+            // Add click animation
+            this.style.transform = "scale(0.95)";
+            setTimeout(() => {
+              this.style.transform = "scale(1)";
+            }, 150);
+
+            // Update the details text with smooth transition
+            productDetailsElement.style.opacity = "0.5";
+            productDetailsElement.style.transform = "translateY(-10px)";
+
+            setTimeout(() => {
+              productDetailsElement.textContent = detail;
+              productDetailsElement.style.opacity = "1";
+              productDetailsElement.style.transform = "translateY(0)";
+            }, 200);
+
+            // Remove active class from all features in current slide
+            const allFeatures =
+              currentSlide.querySelectorAll(".feature.clickable");
+            allFeatures.forEach((f) => f.classList.remove("active-feature"));
+
+            // Add active class to clicked feature
+            this.classList.add("active-feature");
+          });
+        });
+
+        // Reset to default details when slide changes
+        const originalDetails = {
+          tup: "Premium kalitede özenle seçilmiş kahve çekirdeklerinden üretilen granül kahvemiz, şık cam tüplerde sunuluyor. Modern tasarımı ile her ortama uyum sağlar.",
+          kavanoz:
+            "Ekonomik ve pratik kavanoz ambalajında sunulan granül kahvemiz, günlük kullanım için idealdir. Geniş kapasitesi ile uzun süre taze kalır.",
+          kapsul:
+            "Modern kahve makineleri için özel olarak tasarlanmış kapsül kahvemiz, her kapsülde mükemmel ölçülerde kahve deneyimi sunar.",
+          sut: "Kahvenizi kremsi ve lezzetli hale getiren premium süt tozumuz, doğal süt aroması ile kahve deneyiminizi zenginleştirir.",
+        };
+
+        // Override the showSlide function to reset details
+        const originalShowSlide = window.showSlide;
+        window.showSlide = function (index) {
+          originalShowSlide(index);
+
+          // Reset details to original after slide change
+          setTimeout(() => {
+            const activeSlide = document.querySelector(
+              ".carousel-slide.active"
+            );
+            if (activeSlide) {
+              const productType = activeSlide.getAttribute("data-product");
+              const detailsElement = activeSlide.querySelector(
+                '[id^="product-details"]'
+              );
+              const features =
+                activeSlide.querySelectorAll(".feature.clickable");
+
+              if (detailsElement && originalDetails[productType]) {
+                detailsElement.textContent = originalDetails[productType];
+              }
+
+              // Remove active class from all features
+              features.forEach((f) => f.classList.remove("active-feature"));
+            }
+          }, 300);
+        };
+
+        // Touch/Swipe functionality for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+
+        const carouselContainer = document.querySelector(".carousel-content");
+        const swipeIndicator = document.querySelector(".swipe-indicator");
+        let hasUserSwiped = false;
+
+        if (carouselContainer) {
+          // Touch start
+          carouselContainer.addEventListener(
+            "touchstart",
+            function (e) {
+              touchStartX = e.changedTouches[0].screenX;
+              touchStartY = e.changedTouches[0].screenY;
+            },
+            { passive: true }
+          );
+
+          // Touch move - prevent default scrolling for horizontal swipes
+          carouselContainer.addEventListener(
+            "touchmove",
+            function (e) {
+              const touchCurrentX = e.changedTouches[0].screenX;
+              const touchCurrentY = e.changedTouches[0].screenY;
+
+              const deltaX = Math.abs(touchCurrentX - touchStartX);
+              const deltaY = Math.abs(touchCurrentY - touchStartY);
+
+              // If horizontal swipe is more dominant, prevent vertical scrolling
+              if (deltaX > deltaY && deltaX > 10) {
+                e.preventDefault();
+              }
+            },
+            { passive: false }
+          );
+
+          // Touch end
+          carouselContainer.addEventListener(
+            "touchend",
+            function (e) {
+              touchEndX = e.changedTouches[0].screenX;
+              touchEndY = e.changedTouches[0].screenY;
+              handleSwipe();
+            },
+            { passive: true }
+          );
+        }
+
+        function handleSwipe() {
+          const deltaX = touchEndX - touchStartX;
+          const deltaY = touchEndY - touchStartY;
+          const minSwipeDistance = 50;
+
+          // Check if horizontal swipe is more dominant than vertical
+          if (
+            Math.abs(deltaX) > Math.abs(deltaY) &&
+            Math.abs(deltaX) > minSwipeDistance
+          ) {
+            // Hide swipe indicator after first use
+            if (!hasUserSwiped && swipeIndicator) {
+              swipeIndicator.style.opacity = "0";
+              setTimeout(() => {
+                swipeIndicator.style.display = "none";
+              }, 300);
+              hasUserSwiped = true;
+            }
+
+            if (deltaX > 0) {
+              // Swipe right - go to previous slide
+              prevSlide();
+            } else {
+              // Swipe left - go to next slide
+              nextSlide();
+            }
+          }
+        }
+
+        // Mouse drag functionality for desktop (optional)
+        let mouseStartX = 0;
+        let mouseEndX = 0;
+        let isDragging = false;
+
+        if (carouselContainer) {
+          carouselContainer.addEventListener("mousedown", function (e) {
+            mouseStartX = e.clientX;
+            isDragging = true;
+            carouselContainer.style.cursor = "grabbing";
+          });
+
+          carouselContainer.addEventListener("mousemove", function (e) {
+            if (!isDragging) return;
+            e.preventDefault();
+          });
+
+          carouselContainer.addEventListener("mouseup", function (e) {
+            if (!isDragging) return;
+
+            mouseEndX = e.clientX;
+            const deltaX = mouseEndX - mouseStartX;
+            const minDragDistance = 50;
+
+            if (Math.abs(deltaX) > minDragDistance) {
+              if (deltaX > 0) {
+                prevSlide();
+              } else {
+                nextSlide();
+              }
+            }
+
+            isDragging = false;
+            carouselContainer.style.cursor = "grab";
+          });
+
+          carouselContainer.addEventListener("mouseleave", function () {
+            isDragging = false;
+            carouselContainer.style.cursor = "grab";
+          });
+
+          // Set initial cursor
+          carouselContainer.style.cursor = "grab";
+        }
       });
     </script>
   </body>
