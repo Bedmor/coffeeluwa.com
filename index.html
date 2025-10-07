@@ -13,6 +13,13 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+      <div class="modal-content">
+        <button class="close-modal" onclick="closeImageModal()">×</button>
+        <img id="modalImage" src="" alt="Enlarged image" />
+      </div>
+    </div>
     <!-- Header -->
     <header>
       <div class="container">
@@ -82,27 +89,34 @@
                   <p id="product-details">
                     Lüks, Pratik ve Cam Ambalajda Çevreci Tek Porsiyonluk Kahve
                     Deneyimi Sıradan poşet kahvelere bir alternatif arayan,
-                    kaliteye önem veren kahve tutkunları için... Luwa Coffee,
-                    anlık kahve keyfinizi lüks, yüksek kaliteli ve çevreye
-                    duyarlı bir deneyime dönüştürüyor. Premium İçerik, Mükemmel
-                    Porsiyon Biz, pratikliğin kaliteden ödün vermek anlamına
-                    gelmediğine inanıyoruz.
+                    kaliteye önem veren kahve tutkunları için...
                   </p>
                   <div class="slide-features">
                     <span
                       class="feature clickable"
-                      data-detail="Premium kahve çekirdeklerinden üretilmiş, özel işlem görmüş granül kahve. Her fincan için mükemmel çözünürlük garantisi."
-                      >Premium Kalite</span
+                      data-detail="Her bir tüpün içindeki granül kahve, titizlikle seçilmiş çekirdeklerden üretilmiştir. Bu özenli seçim, zengin bir aroma ve pürüzsüz bir içim vaat eder."
+                      >Özenle Seçilmiş Premium Kahve</span
+                    >
+
+                    <span
+                      class="feature clickable"
+                      data-detail="Şık ve dayanıklı cam tüpler, kahve ritüelinize zarafet katar. Bu lüks sunum, ürününüzü anlık kahve segmentinde üst seviyeye taşır."
+                      >Lüks Ambalaj</span
                     >
                     <span
                       class="feature clickable"
-                      data-detail="Şık ve modern cam tüp tasarımı ile evde, ofiste veya otelde lüks bir ikram deneyimi sunar. Hijyenik ve pratik kullanım."
-                      >Şık Tasarım</span
+                      data-detail="Kullandığımız cam tüpler, tek kullanımlık plastik poşetlere göre çok daha çevrecidir ve kolaylıkla geri dönüştürülebilir. Kaliteyi seçerken doğayı da koruyun."
+                      >Çevreci Tercih</span
                     >
                     <span
                       class="feature clickable"
-                      data-detail="Hızlı çözünme özelliği sayesinde sıcak su ile karıştırmanız yeterli. Pratik ve kolay hazırlama imkanı."
-                      >Kolay Hazırlık</span
+                      data-detail="Her bir şık
+                    Luwa Coffee Kutusu, 6 adet (6 x 2 gr) cam tüp kahve içerir.
+                    Toptan alım kolaylığı için, her bir ana koli, toplam 12 adet
+                    ürün kutusu (72 adet tüp) ile gelir. Luwa Coffee Tüp Kahve
+                    Kutusu ile kaliteyi, pratikliği ve çevreye duyarlılığı camın
+                    zarafetinde birleştirin."
+                      >Paketleme</span
                     >
                   </div>
                 </div>
@@ -116,25 +130,38 @@
                 <div class="slide-text">
                   <h3 id="product-title-2">LUWA KAVANOZ KAHVE</h3>
                   <p id="product-details-2">
-                    Ekonomik ve pratik kavanoz ambalajında sunulan granül
-                    kahvemiz, günlük kullanım için idealdir. Geniş kapasitesi
-                    ile uzun süre taze kalır.
+                    Lüks ve Zarafetle Buluşan Granül Kahve Deneyimi Sıradan
+                    granül kahveleri unutun. Luwa Coffee, anlık kahve keyfinizi
+                    en üst seviyeye taşıyor. Biz, kahve tutkunlarının
+                    pratiklikten ödün vermeden kaliteden vazgeçmek istemediğini
+                    biliyoruz. Bu nedenle Luva Coffee 100 Gr Granül Kahve'yi,
+                    hem içerik hem de ambalaj olarak lüksü ve özeni bir araya
+                    getiren premium bir ürün olarak tasarladık.
                   </p>
                   <div class="slide-features">
                     <span
                       class="feature clickable"
-                      data-detail="100g ve 200g seçenekleri ile farklı ihtiyaçlara uygun ekonomik paketleme. Aileniz için ideal boyutlarda."
-                      >Ekonomik Paket</span
+                      data-detail="Özenle Seçilmiş Çekirdeklerden Gelen Lezzet
+Bu kavanozun içindeki her bir granül, sıradan bir kahve değil. Özenle seçilmiş, yüksek kaliteli kahve çekirdeklerinin mükemmel birleşiminden elde edildi.
+"
+                      >Özenle Seçilmiş Premium Kahve</span
                     >
                     <span
                       class="feature clickable"
-                      data-detail="Hava geçirmez kavanoz sayesinde kahvenin tazeliği ve aroması uzun süre korunur. Nem ve hava almaz."
-                      >Uzun Tazelik</span
+                      data-detail="Premium Dokunuş
+Luwa Coffee, yalnızca lezzetiyle değil, estetiğiyle de fark yaratır. Kahvenizi en iyi şekilde korumak ve mutfağınıza şıklık katmak için tasarlandı."
+                      >Mantar Kapaklı Cam Kavanoz</span
                     >
                     <span
                       class="feature clickable"
                       data-detail="Geniş ağızlı kavanoz tasarımı ile kolay kullanım. Kaşık ile rahatlıkla alabilir, istediğiniz miktarda hazırlayabilirsiniz."
                       >Kolay Kullanım</span
+                    >
+                    <span
+                      class="feature clickable"
+                      data-detail="100g ve 200g seçenekleri ile farklı ihtiyaçlara uygun ekonomik paketleme.
+"
+                      >Ekonomik Paket</span
                     >
                   </div>
                 </div>
@@ -155,13 +182,15 @@
                   <div class="slide-features">
                     <span
                       class="feature clickable"
-                      data-detail="Her kapsül tek kullanımlık ve hijyenik ambalajda. Taze kahve aroması her kapsülde korunur. Kirlenme riski yoktur."
-                      >Hijyenik Kapsül</span
+                      data-detail="Kahvemizin temelinde dünyanın en iyi çiftliklerinden özenle seçilmiş, yüksek rakımda yetişen Arabica çekirdekleri bulunur.
+"
+                      >Seçkin Çekirdekler</span
                     >
                     <span
                       class="feature clickable"
-                      data-detail="Çoğu kapsül kahve makinesi ile uyumlu. Nespresso, Dolce Gusto ve benzeri makinelerle mükemmel uyum."
-                      >Makine Uyumlu</span
+                      data-detail="Luwa kapsülleri, Nespresso® makineleriyle tam uyumludur. Tek bir düğmeye basarak evinizin konforunda profesyonel kalitede gurme espressoya ulaşın.
+"
+                      >Kolaylık</span
                     >
                     <span
                       class="feature clickable"
@@ -752,6 +781,9 @@
               productDetailsElement.textContent = detail;
               productDetailsElement.style.opacity = "1";
               productDetailsElement.style.transform = "translateY(0)";
+
+              // Adjust slide height based on content
+              adjustSlideHeight(currentSlide);
             }, 200);
 
             // Remove active class from all features in current slide
@@ -766,12 +798,12 @@
 
         // Reset to default details when slide changes
         const originalDetails = {
-          tup: "Premium kalitede özenle seçilmiş kahve çekirdeklerinden üretilen granül kahvemiz, şık cam tüplerde sunuluyor. Modern tasarımı ile her ortama uyum sağlar.",
+          tup: "Lüks, Pratik ve Cam Ambalajda Çevreci Tek Porsiyonluk Kahve Deneyimi Sıradan poşet kahvelere bir alternatif arayan, kaliteye önem veren kahve tutkunları için... ",
           kavanoz:
-            "Ekonomik ve pratik kavanoz ambalajında sunulan granül kahvemiz, günlük kullanım için idealdir. Geniş kapasitesi ile uzun süre taze kalır.",
+            "Sıradan granül kahveleri unutun. Luwa Coffee, anlık kahve keyfinizi en üst seviyeye taşıyor.Luwa Coffee 100 Gr Granül Kahve'yi, hem içerik hem de ambalaj olarak lüksü ve özeni bir araya getiren premium bir ürün olarak tasarladık.",
           kapsul:
-            "Modern kahve makineleri için özel olarak tasarlanmış kapsül kahvemiz, her kapsülde mükemmel ölçülerde kahve deneyimi sunar.",
-          sut: "Kahvenizi kremsi ve lezzetli hale getiren premium süt tozumuz, doğal süt aroması ile kahve deneyiminizi zenginleştirir.",
+            "Luwa Kapsül Kahve ​Sadece En İyi Kahveyi İsteyenler İçin. ​Luwa, size zahmetsizce mükemmel bir kahve deneyimi sunar. Kaliteden ödün vermeden günlük ritüelini sadeleştirmek isteyen kahve gurmeleri için tasarlanmıştır.",
+          sut: "Luwa Süt Tozu ​Kahvenizi Kremsi ve Lezzetli Hale Getiren Premium Süt Tozu ​Kahvenizi kremsi ve lezzetli hale getiren premium süt tozumuz, doğal süt aroması ile kahve deneyiminizi zenginleştirir.",
         };
 
         // Override the showSlide function to reset details
@@ -798,9 +830,84 @@
 
               // Remove active class from all features
               features.forEach((f) => f.classList.remove("active-feature"));
+
+              // Reset slide height to default
+              resetSlideHeight(activeSlide);
             }
           }, 300);
         };
+
+        // Function to adjust slide height based on content (for feature click)
+        function adjustSlideHeight(slide) {
+          const isMobile = window.innerWidth <= 768;
+
+          if (isMobile) {
+            // On mobile, calculate required height based on content
+            const slideText = slide.querySelector(".slide-text");
+            const slideImage = slide.querySelector(".slide-image");
+
+            // Reset height to auto to measure content
+            slide.style.minHeight = "auto";
+            slide.style.height = "auto";
+
+            // Force layout recalculation
+            slide.offsetHeight;
+
+            // Get the natural height of the content
+            const textHeight = slideText.offsetHeight;
+            const imageHeight = slideImage.offsetHeight;
+
+            // Calculate required height with padding and margins
+            const requiredHeight = textHeight + imageHeight + 120; // 120px for padding and margins
+            const minHeight = Math.max(requiredHeight, 700); // Minimum 700px
+
+            // Apply the calculated height
+            slide.style.minHeight = minHeight + "px";
+
+            // Also update the carousel-slides container
+            const carouselSlides = slide.parentElement;
+            carouselSlides.style.minHeight = minHeight + "px";
+          }
+        }
+
+        // Function to reset slide height to default (with dynamic calculation)
+        function resetSlideHeight(slide) {
+          const isMobile = window.innerWidth <= 768;
+
+          if (isMobile) {
+            // Calculate dynamic height for default content too
+            const slideText = slide.querySelector(".slide-text");
+            const slideImage = slide.querySelector(".slide-image");
+
+            // Temporarily reset height to measure content
+            slide.style.minHeight = "auto";
+            slide.style.height = "auto";
+
+            // Force layout recalculation
+            slide.offsetHeight;
+
+            // Get the natural height of the default content
+            const textHeight = slideText.offsetHeight;
+            const imageHeight = slideImage.offsetHeight;
+
+            // Calculate required height with padding and margins
+            const requiredHeight = textHeight + imageHeight + 120; // 120px for padding and margins
+            const minHeight = Math.max(requiredHeight, 700); // Minimum 700px
+
+            // Apply the calculated height
+            slide.style.minHeight = minHeight + "px";
+
+            // Also update the carousel-slides container
+            const carouselSlides = slide.parentElement;
+            carouselSlides.style.minHeight = minHeight + "px";
+          } else {
+            // Reset to default desktop height
+            slide.style.minHeight = "";
+            slide.style.height = "";
+            const carouselSlides = slide.parentElement;
+            carouselSlides.style.minHeight = "";
+          }
+        }
 
         // Touch/Swipe functionality for mobile
         let touchStartX = 0;
@@ -926,6 +1033,69 @@
           // Set initial cursor
           carouselContainer.style.cursor = "grab";
         }
+
+        // Handle window resize to adjust heights
+        window.addEventListener("resize", function () {
+          const activeSlide = document.querySelector(".carousel-slide.active");
+          if (activeSlide) {
+            // Small delay to ensure layout has updated
+            setTimeout(() => {
+              const hasActiveFeature = activeSlide.querySelector(
+                ".feature.active-feature"
+              );
+              if (hasActiveFeature) {
+                adjustSlideHeight(activeSlide);
+              } else {
+                resetSlideHeight(activeSlide);
+              }
+            }, 100);
+          }
+        });
+
+        // Initial height adjustment for all slides
+        setTimeout(() => {
+          const allSlides = document.querySelectorAll(".carousel-slide");
+          allSlides.forEach((slide) => {
+            // Use adjustSlideHeight for initial calculation
+            adjustSlideHeight(slide);
+          });
+        }, 100);
+      });
+    </script>
+    <script>
+      // Image modal functionality
+      function openImageModal(imgSrc) {
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        modalImg.src = imgSrc;
+        // Trigger reflow to ensure transition works
+        modal.offsetHeight;
+        modal.classList.add("active");
+
+        // Close modal when clicking outside the image
+        modal.onclick = function (e) {
+          if (e.target === modal) {
+            closeImageModal();
+          }
+        };
+      }
+
+      function closeImageModal() {
+        const modal = document.getElementById("imageModal");
+        modal.classList.remove("active");
+      }
+
+      // Add click handlers to all category card images
+      document.addEventListener("DOMContentLoaded", function () {
+        const categoryImages = document.querySelectorAll(".slide-image img");
+        categoryImages.forEach((img) => {
+          img.style.cursor = "pointer";
+          img.onclick = function (e) {
+            e.stopPropagation(); // Prevent card click event
+            // Add animation class
+            openImageModal(this.src);
+          };
+        });
       });
     </script>
   </body>
