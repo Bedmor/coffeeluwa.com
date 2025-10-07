@@ -73,113 +73,6 @@ body {
   padding: 0;
   color: white;
 }
-/* Category Cards */
-.category-card {
-  display: grid;
-  grid-template-areas: "overlay";
-  align-items: center;
-  justify-items: center;
-  background: var(--green);
-  background-image: url("assets/noise-light.png");
-  background-size: 75px 75px;
-  padding: 40px 30px;
-  border-radius: 20px;
-  text-align: center;
-  border: 2px solid var(--primary-gold);
-  min-height: 120px;
-  width: 100%;
-  max-width: 350px;
-  margin: 0 auto;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  cursor: pointer;
-  overflow: hidden;
-}
-
-.category-card > * {
-  grid-area: overlay;
-}
-
-.category-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(218, 165, 32, 0.1) 0%,
-    transparent 50%,
-    rgba(218, 165, 32, 0.05) 100%
-  );
-  border-radius: 20px;
-  pointer-events: none;
-}
-
-.category-card:hover {
-  transform: translateZ(20px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(218, 165, 32, 0.2);
-  border-color: var(--gold-light);
-}
-
-.category-card h3 {
-  z-index: 2;
-  font-size: 1.2rem;
-  color: var(--primary-gold);
-  margin: 0;
-  position: relative;
-  top: 8rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-.category-icon-kavanoz {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 250px;
-  height: 350px;
-  background-image: url("assets/100mg.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-.category-icon-sut {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 250px;
-  height: 350px;
-  background-image: url("assets/sut.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-.category-icon-kapsul {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 250px;
-  height: 350px;
-  background-image: url("assets/kapsul.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-.category-icon-tup {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 250px;
-  height: 350px;
-  background-image: url("assets/tup.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
 
 /* Coffee Categories */
 .coffee-categories {
@@ -209,14 +102,16 @@ body {
 }
 
 .carousel-slides {
+  background-image: url("assets/noise-light.png");
+  background-size: 75px 75px;
+  background-color: rgba(255, 255, 255, 0.01);
   position: relative;
   height: 400px;
   transition: min-height 0.4s ease;
 }
 
 .carousel-slide {
-  background-image: url("assets/noise-light.png");
-  background-size: 75px 75px;
+
   position: absolute;
   top: 0;
   left: 0;
@@ -1281,6 +1176,10 @@ nav a:hover {
 
 /* Mobile Modal Adjustments */
 @media (max-width: 480px) {
+  .coffee-image {
+    width: 350px;
+    height: 250px;
+  }
   .modal-content {
     width: 95%;
     margin: 20px;
@@ -1537,8 +1436,6 @@ nav a:hover {
   }
 
   .carousel-slide {
-    background-image: url("assets/noise-light.png");
-    background-size: 75px 75px;
     flex-direction: column;
     padding: 35px;
     text-align: center;
