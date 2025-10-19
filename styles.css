@@ -537,7 +537,7 @@ header.shrunk nav a {
   cursor: pointer;
   padding: 0;
   width: 30px;
-  height: 25px;
+  height: 24px;
   justify-content: space-between;
   z-index: 101;
 }
