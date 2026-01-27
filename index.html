@@ -11,8 +11,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>LUWA Coffee — Harika Anları Keşfet</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Language Selector Styles */
+      .language-selector {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .language-toggle {
+        background: var(--primary-gold);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .language-toggle:hover {
+        transform: scale(1.1);
+        background: var(--gold-light);
+      }
+
+      .language-dropdown {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        min-width: 180px;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+      }
+
+      .language-dropdown.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .language-option {
+        padding: 14px 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: background 0.2s ease;
+        color: var(--dark-brown);
+        font-weight: 500;
+        border: none;
+        background: transparent;
+        width: 100%;
+        text-align: left;
+      }
+
+      .language-option:hover {
+        background: var(--cream);
+      }
+
+      .language-option.active {
+        background: var(--primary-gold);
+        color: white;
+      }
+
+      .language-option .flag {
+        font-size: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .language-selector {
+          top: 15px;
+          right: 15px;
+        }
+
+        .language-toggle {
+          width: 45px;
+          height: 45px;
+          font-size: 20px;
+        }
+      }
+    </style>
   </head>
   <body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+      <button class="language-toggle" id="languageToggle" aria-label="Change language">
+        🌐
+      </button>
+      <div class="language-dropdown" id="languageDropdown">
+        <button class="language-option" data-lang="tr">
+          <span class="flag">🇹🇷</span>
+          <span>Türkçe</span>
+        </button>
+        <button class="language-option" data-lang="en">
+          <span class="flag">🇬🇧</span>
+          <span>English</span>
+        </button>
+        <button class="language-option" data-lang="ar">
+          <span class="flag">🇸🇦</span>
+          <span>العربية</span>
+        </button>
+        <button class="language-option" data-lang="ru">
+          <span class="flag">🇷🇺</span>
+          <span>Русский</span>
+        </button>
+      </div>
+    </div>
+
     <!-- Image Modal -->
     <div class="image-modal" id="imageModal">
       <div class="modal-content">
@@ -40,10 +159,10 @@
           <!-- Navigation -->
           <nav class="nav-menu">
             <ul>
-              <li><a href="#coffee">Ürünlerimiz</a></li>
-              <li><a href="#passion">Tutku</a></li>
-              <li><a href="#about">Hakkımızda</a></li>
-              <li><a href="#" class="contact-link">Bize Ulaşın</a></li>
+              <li><a href="#coffee" data-translate="products">Ürünlerimiz</a></li>
+              <li><a href="#passion" data-translate="passion">Tutku</a></li>
+              <li><a href="#about" data-translate="about">Hakkımızda</a></li>
+              <li><a href="#" class="contact-link" data-translate="contact">Bize Ulaşın</a></li>
             </ul>
           </nav>
         </div>
@@ -54,13 +173,13 @@
     <section class="hero">
       <div class="container">
         <div class="hero-content">
-          <h1>HARİKA ANLARI KEŞFET</h1>
-          <p class="hero-subtitle">
+          <h1 data-translate="heroTitle">HARİKA ANLARI KEŞFET</h1>
+          <p class="hero-subtitle" data-translate="heroSubtitle">
             Biz kahveyi sadece bir içecek değil, anı değerli kılan bir ritüel
             olarak görüyoruz. Her tüp, sıradan bir granül kahveden fazlasıdır;
             tasarımında zarafet, içindeki kahvede özen vardır.
           </p>
-          <a href="#" class="cta-button" data-modal="purchase">Satın al 🛒</a>
+          <a href="#" class="cta-button" data-modal="purchase" data-translate="buyNow">Satın al 🛒</a>
         </div>
       </div>
     </section>
@@ -68,7 +187,7 @@
     <!-- Coffee Categories -->
     <section class="coffee-categories" id="coffee">
       <div class="container">
-        <h2 class="section-title">LUWA KAHVE ÇEŞİTLERİ</h2>
+        <h2 class="section-title" data-translate="coffeeVarieties">LUWA KAHVE ÇEŞİTLERİ</h2>
         <div class="vertical-carousel">
           <div class="carousel-nav">
             <button class="nav-btn prev-btn" onclick="prevSlide()">▲</button>
@@ -85,8 +204,8 @@
               <!-- Slide 1 -->
               <div class="carousel-slide active" data-product="tup">
                 <div class="slide-text">
-                  <h3 id="product-title">LUWA TÜP KAHVE</h3>
-                  <p id="product-details">
+                  <h3 id="product-title" data-translate="tubeCoffee">LUWA TÜP KAHVE</h3>
+                  <p id="product-details" data-translate="tubeDetails">
                     Lüks, Pratik ve Cam Ambalajda Çevreci Tek Porsiyonluk Kahve
                     Deneyimi Sıradan poşet kahvelere bir alternatif arayan,
                     kaliteye önem veren kahve tutkunları için...
@@ -94,29 +213,33 @@
                   <div class="slide-features">
                     <span
                       class="feature clickable"
+                      data-translate-detail="tubeFeature1"
                       data-detail="Her bir tüpün içindeki granül kahve, titizlikle seçilmiş çekirdeklerden üretilmiştir. Bu özenli seçim, zengin bir aroma ve pürüzsüz bir içim vaat eder."
-                      >Özenle Seçilmiş Premium Kahve</span
+                      ><span data-translate="premiumCoffee">Özenle Seçilmiş Premium Kahve</span></span
                     >
 
                     <span
                       class="feature clickable"
+                      data-translate-detail="tubeFeature2"
                       data-detail="Şık ve dayanıklı cam tüpler, kahve ritüelinize zarafet katar. Bu lüks sunum, ürününüzü anlık kahve segmentinde üst seviyeye taşır."
-                      >Lüks Ambalaj</span
+                      ><span data-translate="luxuryPackaging">Lüks Ambalaj</span></span
                     >
                     <span
                       class="feature clickable"
+                      data-translate-detail="tubeFeature3"
                       data-detail="Kullandığımız cam tüpler, tek kullanımlık plastik poşetlere göre çok daha çevrecidir ve kolaylıkla geri dönüştürülebilir. Kaliteyi seçerken doğayı da koruyun."
-                      >Çevreci Tercih</span
+                      ><span data-translate="ecoFriendly">Çevreci Tercih</span></span
                     >
                     <span
                       class="feature clickable"
+                      data-translate-detail="tubeFeature4"
                       data-detail="Her bir şık
                     Luwa Coffee Kutusu, 6 adet (6 x 2 gr) cam tüp kahve içerir.
                     Toptan alım kolaylığı için, her bir ana koli, toplam 12 adet
                     ürün kutusu (72 adet tüp) ile gelir. Luwa Coffee Tüp Kahve
                     Kutusu ile kaliteyi, pratikliği ve çevreye duyarlılığı camın
                     zarafetinde birleştirin."
-                      >Paketleme</span
+                      ><span data-translate="packaging">Paketleme</span></span
                     >
                   </div>
                 </div>
@@ -128,8 +251,8 @@
               <!-- Slide 2 -->
               <div class="carousel-slide" data-product="kavanoz">
                 <div class="slide-text">
-                  <h3 id="product-title-2">LUWA KAVANOZ KAHVE</h3>
-                  <p id="product-details-2">
+                  <h3 id="product-title-2" data-translate="jarCoffee">LUWA KAVANOZ KAHVE</h3>
+                  <p id="product-details-2" data-translate="jarDetails">
                     Lüks ve Zarafetle Buluşan Granül Kahve Deneyimi Sıradan
                     granül kahveleri unutun. Luwa Coffee, anlık kahve keyfinizi
                     en üst seviyeye taşıyor. Biz, kahve tutkunlarının
@@ -141,27 +264,31 @@
                   <div class="slide-features">
                     <span
                       class="feature clickable"
+                      data-translate-detail="jarFeature1"
                       data-detail="Özenle Seçilmiş Çekirdeklerden Gelen Lezzet
 Bu kavanozun içindeki her bir granül, sıradan bir kahve değil. Özenle seçilmiş, yüksek kaliteli kahve çekirdeklerinin mükemmel birleşiminden elde edildi.
 "
-                      >Özenle Seçilmiş Premium Kahve</span
+                      ><span data-translate="premiumCoffee">Özenle Seçilmiş Premium Kahve</span></span
                     >
                     <span
                       class="feature clickable"
+                      data-translate-detail="jarFeature2"
                       data-detail="Premium Dokunuş
 Luwa Coffee, yalnızca lezzetiyle değil, estetiğiyle de fark yaratır. Kahvenizi en iyi şekilde korumak ve mutfağınıza şıklık katmak için tasarlandı."
-                      >Mantar Kapaklı Cam Kavanoz</span
+                      ><span data-translate="corkLidJar">Mantar Kapaklı Cam Kavanoz</span></span
                     >
                     <span
                       class="feature clickable"
+                      data-translate-detail="jarFeature3"
                       data-detail="Geniş ağızlı kavanoz tasarımı ile kolay kullanım. Kaşık ile rahatlıkla alabilir, istediğiniz miktarda hazırlayabilirsiniz."
-                      >Kolay Kullanım</span
+                      ><span data-translate="easyUse">Kolay Kullanım</span></span
                     >
                     <span
                       class="feature clickable"
+                      data-translate-detail="jarFeature4"
                       data-detail="100g ve 200g seçenekleri ile farklı ihtiyaçlara uygun ekonomik paketleme.
 "
-                      >Ekonomik Paket</span
+                      ><span data-translate="economicPackage">Ekonomik Paket</span></span
                     >
                   </div>
                 </div>
@@ -173,8 +300,8 @@ Luwa Coffee, yalnızca lezzetiyle değil, estetiğiyle de fark yaratır. Kahveni
               <!-- Slide 3 -->
               <div class="carousel-slide" data-product="kapsul">
                 <div class="slide-text">
-                  <h3 id="product-title-3">LUWA KAPSÜL KAHVE</h3>
-                  <p id="product-details-3">
+                  <h3 id="product-title-3" data-translate="capsuleCoffee">LUWA KAPSÜL KAHVE</h3>
+                  <p id="product-details-3" data-translate="capsuleDetails">
                     Modern kahve makineleri için özel olarak tasarlanmış kapsül
                     kahvemiz, her kapsülde mükemmel ölçülerde kahve deneyimi
                     sunar.
@@ -182,20 +309,23 @@ Luwa Coffee, yalnızca lezzetiyle değil, estetiğiyle de fark yaratır. Kahveni
                   <div class="slide-features">
                     <span
                       class="feature clickable"
+                      data-translate-detail="capsuleFeature1"
                       data-detail="Kahvemizin temelinde dünyanın en iyi çiftliklerinden özenle seçilmiş, yüksek rakımda yetişen Arabica çekirdekleri bulunur.
 "
-                      >Seçkin Çekirdekler</span
+                      ><span data-translate="selectedBeans">Seçkin Çekirdekler</span></span
                     >
                     <span
                       class="feature clickable"
+                      data-translate-detail="capsuleFeature2"
                       data-detail="Luwa kapsülleri, Nespresso® makineleriyle tam uyumludur. Tek bir düğmeye basarak evinizin konforunda profesyonel kalitede gurme espressoya ulaşın.
 "
-                      >Kolaylık</span
+                      ><span data-translate="convenience">Kolaylık</span></span
                     >
                     <span
                       class="feature clickable"
+                      data-translate-detail="capsuleFeature3"
                       data-detail="Her kapsülde mükemmel ölçülerde kahve. Tek tuşla profesyonel kalitede kahve hazırlama imkanı."
-                      >Tek Tuş Hazırlık</span
+                      ><span data-translate="oneTouch">Tek Tuş Hazırlık</span></span
                     >
                   </div>
                 </div>
@@ -207,8 +337,8 @@ Luwa Coffee, yalnızca lezzetiyle değil, estetiğiyle de fark yaratır. Kahveni
               <!-- Slide 4 -->
               <div class="carousel-slide" data-product="sut">
                 <div class="slide-text">
-                  <h3 id="product-title-4">LUWA SÜT TOZU</h3>
-                  <p id="product-details-4">
+                  <h3 id="product-title-4" data-translate="milkPowder">LUWA SÜT TOZU</h3>
+                  <p id="product-details-4" data-translate="milkDetails">
                     Kahvenizi kremsi ve lezzetli hale getiren premium süt
                     tozumuz, doğal süt aroması ile kahve deneyiminizi
                     zenginleştirir.
@@ -216,18 +346,21 @@ Luwa Coffee, yalnızca lezzetiyle değil, estetiğiyle de fark yaratır. Kahveni
                   <div class="slide-features">
                     <span
                       class="feature clickable"
+                      data-translate-detail="milkFeature1"
                       data-detail="%100 doğal süt tozundan üretilmiş, yapay tatlandırıcı ve koruyucu içermez. Saf süt lezzeti."
-                      >Doğal İçerik</span
+                      ><span data-translate="naturalContent">Doğal İçerik</span></span
                     >
                     <span
                       class="feature clickable"
+                      data-translate-detail="milkFeature2"
                       data-detail="Kahvenize eklediğinizde kremsi ve yumuşak bir doku kazandırır. Barista kalitesinde köpük oluşturur."
-                      >Kremsi Doku</span
+                      ><span data-translate="creamyTexture">Kremsi Doku</span></span
                     >
                     <span
                       class="feature clickable"
+                      data-translate-detail="milkFeature3"
                       data-detail="Sıcak ve soğuk içeceklerde mükemmel çözünürlük. Topaklanma yapmaz, homojen karışım sağlar."
-                      >Mükemmel Çözünme</span
+                      ><span data-translate="perfectDissolution">Mükemmel Çözünme</span></span
                     >
                   </div>
                 </div>
@@ -236,7 +369,7 @@ Luwa Coffee, yalnızca lezzetiyle değil, estetiğiyle de fark yaratır. Kahveni
                 </div>
               </div>
             </div>
-            <div class="swipe-indicator">← Kaydırın →</div>
+            <div class="swipe-indicator" data-translate="swipeIndicator">← Kaydırın →</div>
           </div>
           <div class="mobile-carousel-dots">
             <span class="dot active" onclick="currentSlide(1)"></span>
@@ -258,23 +391,23 @@ Luwa Coffee, yalnızca lezzetiyle değil, estetiğiyle de fark yaratır. Kahveni
             </div>
           </div>
           <div class="special-text">
-            <h2>LUWA COFFEE – Zarafetin Kahve Hâli
+            <h2 data-translate="passionTitle">LUWA COFFEE – Zarafetin Kahve Hâli
 </h2>
-            <p>
+            <p data-translate="passionText1">
               Konforun ve estetiğin buluştuğu otel odalarında, ikram deneyimini yeni bir seviyeye taşıyın.
 LUWA COFFEE’nin özel cam tüplerinde sunulan premium granül kahveleri, sade bir kahve anını prestijli bir deneyime dönüştürür.
             </p>
-            <p>
-Her detay, misafirlerinize “özel” hissettirmek için tasarlandı:</p>
+            <p data-translate="passionText2">
+Her detay, misafirlerinize "özel" hissettirmek için tasarlandı:</p>
 <ul style="list-style: inside;">
-  <li> Işığı yansıtan zarif cam tüpler</li>
-  <li> Şeffaf ve hijyenik sunum</li>
-  <li> Her odada zarafet, her yudumda seçkinlik</li>
+  <li data-translate="passionFeature1"> Işığı yansıtan zarif cam tüpler</li>
+  <li data-translate="passionFeature2"> Şeffaf ve hijyenik sunum</li>
+  <li data-translate="passionFeature3"> Her odada zarafet, her yudumda seçkinlik</li>
 </ul>
-<p>
+<p data-translate="passionText3">
 Misafirlerinize yalnızca kahve değil, estetik bir dokunuş sunun.
 LUWA COFFEE – Her Yudumda Lüks</p>
-            <a href="#inspiration" class="cta-button">Satın Alın</a>
+            <a href="#inspiration" class="cta-button" data-translate="buyNow">Satın Alın</a>
           </div>
         </div>
       </div>
@@ -283,25 +416,25 @@ LUWA COFFEE – Her Yudumda Lüks</p>
     <!-- About Section -->
     <section id="about" class="About-section">
       <div class="container">
-        <h1 class="section-title">Hikayemiz</h1>
-        <p class="About-text">
+        <h1 class="section-title" data-translate="ourStory">Hikayemiz</h1>
+        <p class="About-text" data-translate="storyText1">
           Her şey, uzak diyarlardaki bir kahve tarlasında başladı. Sabahın ilk
           ışıklarıyla uyanan genç bir kız, elleriyle kahve çekirdeklerini
           topluyordu. Her tane, sabrın, emeğin ve kahveye duyulan sevginin bir
           yansımasıydı.
         </p>
-        <p class="About-text">
+        <p class="About-text" data-translate="storyText2">
           Biz, LUWA COFFEE olarak bu emeği ve hikâyeyi şehir hayatına taşımak
           istedik. Çünkü kahve yalnızca bir içecek değil, her anı değerli kılan
           bir deneyimdir.
         </p>
-        <p class="About-text">
+        <p class="About-text" data-translate="storyText3">
           Şık cam tüplerde sakladığımız granül kahvemiz, bir yudumda sizi o
           kahve tarlasının ruhuna götürür. Modern tasarımın zarafetiyle buluşan
           bu deneyim; otellerde, ofislerde ve evlerde lüks bir ikram kültürü
           yaratır.
         </p>
-        <p class="About-text">
+        <p class="About-text" data-translate="storyText4">
           LUWA, küçük bir tüpte saklı büyük bir yolculuktur. Her yudum, bir
           hikâye. Her hikâye, bir anıya dönüşür.
         </p>
@@ -333,25 +466,25 @@ LUWA COFFEE – Her Yudumda Lüks</p>
                 LUWA
               </div>
             </div>
-            <p style="color: #cccccc">
+            <p style="color: #cccccc" data-translate="footerDescription">
               Granül kahve konusunda uzmanlaşmış, her fincan için mükemmel
               lezzet garantisi sunuyoruz.
             </p>
           </div>
           <div class="footer-section">
-            <h4>KAHVEMİZ</h4>
+            <h4 data-translate="ourCoffee">KAHVEMİZ</h4>
             <ul>
-              <li><a href="#coffee">Tüp Granül Kahve</a></li>
-              <li><a href="#coffee">Kavanoz Granül Kahve </a></li>
-              <li><a href="#coffee">Kapsül Kahve</a></li>
-              <li><a href="#coffee">Süt Tozu</a></li>
+              <li><a href="#coffee" data-translate="tubeCoffeeFooter">Tüp Granül Kahve</a></li>
+              <li><a href="#coffee" data-translate="jarCoffeeFooter">Kavanoz Granül Kahve </a></li>
+              <li><a href="#coffee" data-translate="capsuleCoffeeFooter">Kapsül Kahve</a></li>
+              <li><a href="#coffee" data-translate="milkPowderFooter">Süt Tozu</a></li>
             </ul>
           </div>
           <div class="footer-section">
-            <h4>BİZ KİMİZ</h4>
+            <h4 data-translate="whoWeAre">BİZ KİMİZ</h4>
             <ul>
-              <li><a href="#about">Hikayemiz</a></li>
-              <li><a href="#" class="contact-link">Bize Ulaşın</a></li>
+              <li><a href="#about" data-translate="ourStoryFooter">Hikayemiz</a></li>
+              <li><a href="#" class="contact-link" data-translate="contactUs">Bize Ulaşın</a></li>
             </ul>
           </div>
         </div>
@@ -360,16 +493,18 @@ LUWA COFFEE – Her Yudumda Lüks</p>
             <a
               href="gizlilik-politikasi.html"
               style="color: var(--primary-gold); text-decoration: none"
+              data-translate="privacyPolicy"
               >Gizlilik Politikası</a
             >
             |
             <a
               href="kullanici-sartlari.html"
               style="color: var(--primary-gold); text-decoration: none"
+              data-translate="userTerms"
               >Kullanıcı Şartları</a
             >
           </p>
-          <p>2024 LUWA Coffee. Tüm hakları saklıdır.</p>
+          <p data-translate="allRights">2024 LUWA Coffee. Tüm hakları saklıdır.</p>
         </div>
       </div>
     </footer>
@@ -378,7 +513,7 @@ LUWA COFFEE – Her Yudumda Lüks</p>
     <div id="modal-overlay" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>Satın alma Seçenekleri</h3>
+          <h3 data-translate="purchaseOptions">Satın alma Seçenekleri</h3>
           <button class="modal-close">
             <svg
               width="24"
@@ -402,15 +537,15 @@ LUWA COFFEE – Her Yudumda Lüks</p>
             <a href="#" class="modal-option" data-option="online">
               <div class="option-icon">🛒</div>
               <div class="option-content">
-                <h4>Online Sipariş</h4>
-                <p>E-ticaret sitelerinden hemen sipariş verin</p>
+                <h4 data-translate="onlineOrder">Online Sipariş</h4>
+                <p data-translate="onlineOrderDesc">E-ticaret sitelerinden hemen sipariş verin</p>
               </div>
             </a>
             <a href="#" class="modal-option" data-option="contact">
               <div class="option-icon">📦</div>
               <div class="option-content">
-                <h4>Toptan Satış</h4>
-                <p>İşletmeniz için toptan fiyat alın</p>
+                <h4 data-translate="wholesale">Toptan Satış</h4>
+                <p data-translate="wholesaleDesc">İşletmeniz için toptan fiyat alın</p>
               </div>
             </a>
           </div>
@@ -422,7 +557,7 @@ LUWA COFFEE – Her Yudumda Lüks</p>
     <div id="ecommerce-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>🛒 Online Sipariş Platformları</h3>
+          <h3 data-translate="onlinePlatforms">🛒 Online Sipariş Platformları</h3>
           <button class="modal-close ecommerce-close"><svg
               width="24"
               height="24"
@@ -513,7 +648,7 @@ LUWA COFFEE – Her Yudumda Lüks</p>
             </a>
           </div>
           <div class="modal-back">
-            <button class="back-button">← Geri Dön</button>
+            <button class="back-button" data-translate="backButton">← Geri Dön</button>
           </div>
         </div>
       </div>
@@ -523,7 +658,7 @@ LUWA COFFEE – Her Yudumda Lüks</p>
     <div id="contact-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>İletişim</h3>
+          <h3 data-translate="contactTitle">İletişim</h3>
           <button class="modal-close contact-close"><svg
               width="24"
               height="24"
@@ -547,14 +682,14 @@ LUWA COFFEE – Her Yudumda Lüks</p>
             <div class="contact-item">
               <div class="contact-icon">📞</div>
               <div class="contact-content">
-                <h4>Telefon</h4>
+                <h4 data-translate="phone">Telefon</h4>
                 <p><a href="tel:+905432671210">+90 (543) 267 1210</a></p>
               </div>
             </div>
             <div class="contact-item">
               <div class="contact-icon">📧</div>
               <div class="contact-content">
-                <h4>E-posta</h4>
+                <h4 data-translate="email">E-posta</h4>
                 <p>
                   <a href="mailto:info@coffeeluwa.com">info@coffeeluwa.com</a>
                 </p>
@@ -563,7 +698,7 @@ LUWA COFFEE – Her Yudumda Lüks</p>
             <div class="contact-item">
               <div class="contact-icon">📧</div>
               <div class="contact-content">
-                <h4>E-posta</h4>
+                <h4 data-translate="email">E-posta</h4>
                 <p>
                   <a href="mailto:satis@coffeeluwa.com">satis@coffeeluwa.com</a>
                 </p>
@@ -571,13 +706,517 @@ LUWA COFFEE – Her Yudumda Lüks</p>
             </div>
           </div>
           <div class="modal-back">
-            <button class="back-button contact-back">← Geri Dön</button>
+            <button class="back-button contact-back" data-translate="backButton">← Geri Dön</button>
           </div>
         </div>
       </div>
     </div>
 
     <script>
+      // Translation data
+      const translations = {
+        tr: {
+          // Header
+          products: "Ürünlerimiz",
+          passion: "Tutku",
+          about: "Hakkımızda",
+          contact: "Bize Ulaşın",
+          
+          // Hero Section
+          heroTitle: "HARİKA ANLARI KEŞFET",
+          heroSubtitle: "Biz kahveyi sadece bir içecek değil, anı değerli kılan bir ritüel olarak görüyoruz. Her tüp, sıradan bir granül kahveden fazlasıdır; tasarımında zarafet, içindeki kahvede özen vardır.",
+          buyNow: "Satın al 🛒",
+          
+          // Coffee Section
+          coffeeVarieties: "LUWA KAHVE ÇEŞİTLERİ",
+          
+          // Products
+          tubeCoffee: "LUWA TÜP KAHVE",
+          tubeDetails: "Lüks, Pratik ve Cam Ambalajda Çevreci Tek Porsiyonluk Kahve Deneyimi Sıradan poşet kahvelere bir alternatif arayan, kaliteye önem veren kahve tutkunları için...",
+          
+          jarCoffee: "LUWA KAVANOZ KAHVE",
+          jarDetails: "Lüks ve Zarafetle Buluşan Granül Kahve Deneyimi Sıradan granül kahveleri unutun. Luwa Coffee, anlık kahve keyfinizi en üst seviyeye taşıyor. Biz, kahve tutkunlarının pratiklikten ödün vermeden kaliteden vazgeçmek istemediğini biliyoruz. Bu nedenle Luva Coffee 100 Gr Granül Kahve'yi, hem içerik hem de ambalaj olarak lüksü ve özeni bir araya getiren premium bir ürün olarak tasarladık.",
+          
+          capsuleCoffee: "LUWA KAPSÜL KAHVE",
+          capsuleDetails: "Modern kahve makineleri için özel olarak tasarlanmış kapsül kahvemiz, her kapsülde mükemmel ölçülerde kahve deneyimi sunar.",
+          
+          milkPowder: "LUWA SÜT TOZU",
+          milkDetails: "Kahvenizi kremsi ve lezzetli hale getiren premium süt tozumuz, doğal süt aroması ile kahve deneyiminizi zenginleştirir.",
+          
+          // Passion Section
+          passionTitle: "LUWA COFFEE – Zarafetin Kahve Hâli",
+          passionText1: "Konforun ve estetiğin buluştuğu otel odalarında, ikram deneyimini yeni bir seviyeye taşıyın. LUWA COFFEE'nin özel cam tüplerinde sunulan premium granül kahveleri, sade bir kahve anını prestijli bir deneyime dönüştürür.",
+          passionText2: "Her detay, misafirlerinize 'özel' hissettirmek için tasarlandı:",
+          passionFeature1: "Işığı yansıtan zarif cam tüpler",
+          passionFeature2: "Şeffaf ve hijyenik sunum",
+          passionFeature3: "Her odada zarafet, her yudumda seçkinlik",
+          passionText3: "Misafirlerinize yalnızca kahve değil, estetik bir dokunuş sunun. LUWA COFFEE – Her Yudumda Lüks",
+          
+          // About Section
+          ourStory: "Hikayemiz",
+          storyText1: "Her şey, uzak diyarlardaki bir kahve tarlasında başladı. Sabahın ilk ışıklarıyla uyanan genç bir kız, elleriyle kahve çekirdeklerini topluyordu. Her tane, sabrın, emeğin ve kahveye duyulan sevginin bir yansımasıydı.",
+          storyText2: "Biz, LUWA COFFEE olarak bu emeği ve hikâyeyi şehir hayatına taşımak istedik. Çünkü kahve yalnızca bir içecek değil, her anı değerli kılan bir deneyimdir.",
+          storyText3: "Şık cam tüplerde sakladığımız granül kahvemiz, bir yudumda sizi o kahve tarlasının ruhuna götürür. Modern tasarımın zarafetiyle buluşan bu deneyim; otellerde, ofislerde ve evlerde lüks bir ikram kültürü yaratır.",
+          storyText4: "LUWA, küçük bir tüpte saklı büyük bir yolculuktur. Her yudum, bir hikâye. Her hikâye, bir anıya dönüşür.",
+          
+          // Footer
+          ourCoffee: "KAHVEMİZ",
+          whoWeAre: "BİZ KİMİZ",
+          tubeCoffeeFooter: "Tüp Granül Kahve",
+          jarCoffeeFooter: "Kavanoz Granül Kahve",
+          capsuleCoffeeFooter: "Kapsül Kahve",
+          milkPowderFooter: "Süt Tozu",
+          ourStoryFooter: "Hikayemiz",
+          contactUs: "Bize Ulaşın",
+          footerDescription: "Granül kahve konusunda uzmanlaşmış, her fincan için mükemmel lezzet garantisi sunuyoruz.",
+          privacyPolicy: "Gizlilik Politikası",
+          userTerms: "Kullanıcı Şartları",
+          allRights: "2024 LUWA Coffee. Tüm hakları saklıdır.",
+          
+          // Modals
+          purchaseOptions: "Satın alma Seçenekleri",
+          onlineOrder: "Online Sipariş",
+          onlineOrderDesc: "E-ticaret sitelerinden hemen sipariş verin",
+          wholesale: "Toptan Satış",
+          wholesaleDesc: "İşletmeniz için toptan fiyat alın",
+          onlinePlatforms: "🛒 Online Sipariş Platformları",
+          contactTitle: "İletişim",
+          phone: "Telefon",
+          email: "E-posta",
+          backButton: "← Geri Dön",
+          swipeIndicator: "← Kaydırın →",
+          
+          // Product Features
+          premiumCoffee: "Özenle Seçilmiş Premium Kahve",
+          luxuryPackaging: "Lüks Ambalaj",
+          ecoFriendly: "Çevreci Tercih",
+          packaging: "Paketleme",
+          corkLidJar: "Mantar Kapaklı Cam Kavanoz",
+          easyUse: "Kolay Kullanım",
+          economicPackage: "Ekonomik Paket",
+          selectedBeans: "Seçkin Çekirdekler",
+          convenience: "Kolaylık",
+          oneTouch: "Tek Tuş Hazırlık",
+          naturalContent: "Doğal İçerik",
+          creamyTexture: "Kremsi Doku",
+          perfectDissolution: "Mükemmel Çözünme",
+
+          // Feature Details
+          tubeFeature1: "Her bir tüpün içindeki granül kahve, titizlikle seçilmiş çekirdeklerden üretilmiştir. Bu özenli seçim, zengin bir aroma ve pürüzsüz bir içim vaat eder.",
+          tubeFeature2: "Şık ve dayanıklı cam tüpler, kahve ritüelinize zarafet katar. Bu lüks sunum, ürününüzü anlık kahve segmentinde üst seviyeye taşır.",
+          tubeFeature3: "Kullandığımız cam tüpler, tek kullanımlık plastik poşetlere göre çok daha çevrecidir ve kolaylıkla geri dönüştürülebilir. Kaliteyi seçerken doğayı da koruyun.",
+          tubeFeature4: "Her bir şık Luwa Coffee Kutusu, 6 adet (6 x 2 gr) cam tüp kahve içerir. Toptan alım kolaylığı için, her bir ana koli, toplam 12 adet ürün kutusu (72 adet tüp) ile gelir. Luwa Coffee Tüp Kahve Kutusu ile kaliteyi, pratikliği ve çevreye duyarlılığı camın zarafetinde birleştirin.",
+          
+          jarFeature1: "Özenle Seçilmiş Çekirdeklerden Gelen Lezzet\nBu kavanozun içindeki her bir granül, sıradan bir kahve değil. Özenle seçilmiş, yüksek kaliteli kahve çekirdeklerinin mükemmel birleşiminden elde edildi.",
+          jarFeature2: "Premium Dokunuş\nLuwa Coffee, yalnızca lezzetiyle değil, estetiğiyle de fark yaratır. Kahvenizi en iyi şekilde korumak ve mutfağınıza şıklık katmak için tasarlandı.",
+          jarFeature3: "Geniş ağızlı kavanoz tasarımı ile kolay kullanım. Kaşık ile rahatlıkla alabilir, istediğiniz miktarda hazırlayabilirsiniz.",
+          jarFeature4: "100g ve 200g seçenekleri ile farklı ihtiyaçlara uygun ekonomik paketleme.",
+          
+          capsuleFeature1: "Kahvemizin temelinde dünyanın en iyi çiftliklerinden özenle seçilmiş, yüksek rakımda yetişen Arabica çekirdekleri bulunur.",
+          capsuleFeature2: "Luwa kapsülleri, Nespresso® makineleriyle tam uyumludur. Tek bir düğmeye basarak evinizin konforunda profesyonel kalitede gurme espressoya ulaşın.",
+          capsuleFeature3: "Her kapsülde mükemmel ölçülerde kahve. Tek tuşla profesyonel kalitede kahve hazırlama imkanı.",
+          
+          milkFeature1: "%100 doğal süt tozundan üretilmiş, yapay tatlandırıcı ve koruyucu içermez. Saf süt lezzeti.",
+          milkFeature2: "Kahvenize eklediğinizde kremsi ve yumuşak bir doku kazandırır. Barista kalitesinde köpük oluşturur.",
+          milkFeature3: "Sıcak ve soğuk içeceklerde mükemmel çözünürlük. Topaklanma yapmaz, homojen karışım sağlar."
+        },
+        en: {
+          // Header
+          products: "Products",
+          passion: "Passion",
+          about: "About",
+          contact: "Contact Us",
+          
+          // Hero Section
+          heroTitle: "DISCOVER WONDERFUL MOMENTS",
+          heroSubtitle: "We see coffee not just as a beverage, but as a ritual that makes moments valuable. Each tube is more than ordinary instant coffee; there is elegance in its design and care in its coffee.",
+          buyNow: "Buy Now 🛒",
+          
+          // Coffee Section
+          coffeeVarieties: "LUWA COFFEE VARIETIES",
+          
+          // Products
+          tubeCoffee: "LUWA TUBE COFFEE",
+          tubeDetails: "Luxury, Practical and Eco-Friendly Single-Serve Coffee Experience in Glass Packaging For coffee enthusiasts who value quality and seek an alternative to ordinary bagged coffee...",
+          
+          jarCoffee: "LUWA JAR COFFEE",
+          jarDetails: "Premium Instant Coffee Experience with Luxury and Elegance Forget ordinary instant coffee. Luwa Coffee elevates your instant coffee enjoyment to the highest level. We designed Luwa Coffee 100g Instant Coffee as a premium product that combines luxury and care in both content and packaging.",
+          
+          capsuleCoffee: "LUWA CAPSULE COFFEE",
+          capsuleDetails: "Our capsule coffee, specially designed for modern coffee machines, offers a perfectly measured coffee experience in every capsule.",
+          
+          milkPowder: "LUWA MILK POWDER",
+          milkDetails: "Our premium milk powder that makes your coffee creamy and delicious enriches your coffee experience with natural milk aroma.",
+          
+          // Passion Section
+          passionTitle: "LUWA COFFEE – The Elegant Side of Coffee",
+          passionText1: "Elevate the hospitality experience in hotel rooms where comfort meets aesthetics. Premium instant coffee served in LUWA COFFEE's special glass tubes transforms a simple coffee moment into a prestigious experience.",
+          passionText2: "Every detail is designed to make your guests feel 'special':",
+          passionFeature1: "Elegant glass tubes that reflect light",
+          passionFeature2: "Transparent and hygienic presentation",
+          passionFeature3: "Elegance in every room, distinction in every sip",
+          passionText3: "Offer your guests not just coffee, but an aesthetic touch. LUWA COFFEE – Luxury in Every Sip",
+          
+          // About Section
+          ourStory: "Our Story",
+          storyText1: "It all started in a coffee field in a distant land. A young girl waking up with the first light of dawn was hand-picking coffee beans. Each bean was a reflection of patience, labor, and love for coffee.",
+          storyText2: "As LUWA COFFEE, we wanted to bring this labor and story to urban life. Because coffee is not just a beverage, it's an experience that makes every moment valuable.",
+          storyText3: "Our instant coffee stored in elegant glass tubes takes you to the soul of that coffee field in one sip. This experience, combined with the elegance of modern design, creates a luxury hospitality culture in hotels, offices, and homes.",
+          storyText4: "LUWA is a great journey hidden in a small tube. Every sip, a story. Every story becomes a memory.",
+          
+          // Footer
+          ourCoffee: "OUR COFFEE",
+          whoWeAre: "WHO WE ARE",
+          tubeCoffeeFooter: "Tube Instant Coffee",
+          jarCoffeeFooter: "Jar Instant Coffee",
+          capsuleCoffeeFooter: "Capsule Coffee",
+          milkPowderFooter: "Milk Powder",
+          ourStoryFooter: "Our Story",
+          contactUs: "Contact Us",
+          footerDescription: "Specialized in instant coffee, offering perfect taste guarantee for every cup.",
+          privacyPolicy: "Privacy Policy",
+          userTerms: "User Terms",
+          allRights: "2024 LUWA Coffee. All rights reserved.",
+          
+          // Modals
+          purchaseOptions: "Purchase Options",
+          onlineOrder: "Online Order",
+          onlineOrderDesc: "Order now from e-commerce sites",
+          wholesale: "Wholesale",
+          wholesaleDesc: "Get wholesale price for your business",
+          onlinePlatforms: "🛒 Online Order Platforms",
+          contactTitle: "Contact",
+          phone: "Phone",
+          email: "Email",
+          backButton: "← Back",
+          swipeIndicator: "← Swipe →",
+          
+          // Product Features
+          premiumCoffee: "Carefully Selected Premium Coffee",
+          luxuryPackaging: "Luxury Packaging",
+          ecoFriendly: "Eco-Friendly Choice",
+          packaging: "Packaging",
+          corkLidJar: "Cork Lid Glass Jar",
+          easyUse: "Easy to Use",
+          economicPackage: "Economic Package",
+          selectedBeans: "Selected Beans",
+          convenience: "Convenience",
+          oneTouch: "One Touch Preparation",
+          naturalContent: "Natural Content",
+          creamyTexture: "Creamy Texture",
+          perfectDissolution: "Perfect Dissolution",
+
+          // Feature Details
+          tubeFeature1: "The granulated coffee inside each tube is produced from meticulously selected beans. This careful selection promises a rich aroma and smooth taste.",
+          tubeFeature2: "Stylish and durable glass tubes add elegance to your coffee ritual. This luxury presentation takes your product to the next level in the instant coffee segment.",
+          tubeFeature3: "The glass tubes we use are much more eco-friendly than disposable plastic sachets and can be easily recycled. Protect nature while choosing quality.",
+          tubeFeature4: "Each stylish Luwa Coffee Box contains 6 (6 x 2 gr) glass tube coffees. For wholesale convenience, each master carton comes with a total of 12 product boxes (72 tubes). Combine quality, practicality and environmental sensitivity in the elegance of glass with Luwa Coffee Tube Coffee Box.",
+          
+          jarFeature1: "Flavor from Carefully Selected Beans\nEach granule in this jar is not just ordinary coffee. It was obtained from the perfect combination of carefully selected, high quality coffee beans.",
+          jarFeature2: "Premium Touch\nLuwa Coffee makes a difference not only with its taste but also with its aesthetics. Designed to protect your coffee in the best way and add elegance to your kitchen.",
+          jarFeature3: "Easy use with wide-mouth jar design. You can easily take it with a spoon and prepare the amount you want.",
+          jarFeature4: "Economic packaging suitable for different needs with 100g and 200g options.",
+          
+          capsuleFeature1: "At the core of our coffee are Arabica beans grown at high altitudes, carefully selected from the world's best farms.",
+          capsuleFeature2: "Luwa capsules are fully compatible with Nespresso® machines. Reach professional quality gourmet espresso in the comfort of your home with the push of a single button.",
+          capsuleFeature3: "Perfectly measured coffee in every capsule. Opportunity to prepare professional quality coffee with one touch.",
+          
+          milkFeature1: "Produced from 100% natural milk powder, contains no artificial sweeteners or preservatives. Pure milk flavor.",
+          milkFeature2: "Adds a creamy and soft texture when added to your coffee. Creates barista quality foam.",
+          milkFeature3: "Perfect solubility in hot and cold drinks. Does not clump, provides homogeneous mixture."
+        },
+        ar: {
+          // Header
+          products: "منتجاتنا",
+          passion: "الشغف",
+          about: "معلومات عنا",
+          contact: "اتصل بنا",
+          
+          // Hero Section
+          heroTitle: "اكتشف لحظات رائعة",
+          heroSubtitle: "نرى القهوة ليست مجرد مشروب، بل طقس يجعل اللحظات قيمة. كل أنبوب هو أكثر من قهوة سريعة عادية؛ هناك أناقة في تصميمه وعناية في قهوته.",
+          buyNow: "اشتري الآن 🛒",
+          
+          // Coffee Section
+          coffeeVarieties: "أنواع قهوة لووا",
+          
+          // Products
+          tubeCoffee: "قهوة لووا الأنبوبية",
+          tubeDetails: "تجربة قهوة فاخرة وعملية وصديقة للبيئة بحصة واحدة في عبوة زجاجية لعشاق القهوة الذين يقدرون الجودة ويبحثون عن بديل للقهوة المعبأة العادية...",
+          
+          jarCoffee: "قهوة لووا المرطبان",
+          jarDetails: "تجربة قهوة سريعة فاخرة مع الأناقة والفخامة انسى القهوة السريعة العادية. قهوة لووا ترفع من متعة القهوة السريعة إلى أعلى مستوى. صممنا قهوة لووا 100 جرام كمنتج فاخر يجمع بين الفخامة والعناية في المحتوى والتعبئة.",
+          
+          capsuleCoffee: "قهوة لووا الكبسولة",
+          capsuleDetails: "قهوة الكبسولة المصممة خصيصًا لآلات القهوة الحديثة، تقدم تجربة قهوة مقاسة تمامًا في كل كبسولة.",
+          
+          milkPowder: "مسحوق الحليب لووا",
+          milkDetails: "مسحوق الحليب الفاخر الذي يجعل قهوتك كريمية ولذيذة يثري تجربة القهوة الخاصة بك برائحة الحليب الطبيعية.",
+          
+          // Passion Section
+          passionTitle: "قهوة لووا - الجانب الأنيق من القهوة",
+          passionText1: "ارفع من تجربة الضيافة في غرف الفنادق حيث تلتقي الراحة بالجماليات. القهوة السريعة الفاخرة المقدمة في الأنابيب الزجاجية الخاصة من قهوة لووا تحول لحظة القهوة البسيطة إلى تجربة مرموقة.",
+          passionText2: "كل التفاصيل مصممة لتجعل ضيوفك يشعرون بأنهم 'مميزون':",
+          passionFeature1: "أنابيب زجاجية أنيقة تعكس الضوء",
+          passionFeature2: "عرض شفاف وصحي",
+          passionFeature3: "أناقة في كل غرفة، تميز في كل رشفة",
+          passionText3: "قدم لضيوفك ليس فقط القهوة، بل لمسة جمالية. قهوة لووا - الفخامة في كل رشفة",
+          
+          // About Section
+          ourStory: "قصتنا",
+          storyText1: "كل شيء بدأ في حقل قهوة في أرض بعيدة. فتاة صغيرة تستيقظ مع أول ضوء الفجر كانت تقطف حبوب القهوة يدويًا. كل حبة كانت انعكاسًا للصبر والعمل والحب للقهوة.",
+          storyText2: "كقهوة لووا، أردنا إحضار هذا العمل والقصة إلى الحياة الحضرية. لأن القهوة ليست مجرد مشروب، إنها تجربة تجعل كل لحظة قيمة.",
+          storyText3: "قهوتنا السريعة المخزنة في أنابيب زجاجية أنيقة تأخذك إلى روح حقل القهوة في رشفة واحدة. هذه التجربة، المجمعة مع أناقة التصميم الحديث، تخلق ثقافة ضيافة فاخرة في الفنادق والمكاتب والمنازل.",
+          storyText4: "لووا هي رحلة عظيمة مخبأة في أنبوب صغير. كل رشفة، قصة. كل قصة تصبح ذكرى.",
+          
+          // Footer
+          ourCoffee: "قهوتنا",
+          whoWeAre: "من نحن",
+          tubeCoffeeFooter: "قهوة سريعة أنبوبية",
+          jarCoffeeFooter: "قهوة سريعة مرطبان",
+          capsuleCoffeeFooter: "قهوة كبسولة",
+          milkPowderFooter: "مسحوق الحليب",
+          ourStoryFooter: "قصتنا",
+          contactUs: "اتصل بنا",
+          footerDescription: "متخصصون في القهوة السريعة، نقدم ضمان طعم مثالي لكل فنجان.",
+          privacyPolicy: "سياسة الخصوصية",
+          userTerms: "شروط المستخدم",
+          allRights: "2024 قهوة لووا. جميع الحقوق محفوظة.",
+          
+          // Modals
+          purchaseOptions: "خيارات الشراء",
+          onlineOrder: "طلب عبر الإنترنت",
+          onlineOrderDesc: "اطلب الآن من مواقع التجارة الإلكترونية",
+          wholesale: "البيع بالجملة",
+          wholesaleDesc: "احصل على سعر الجملة لعملك",
+          onlinePlatforms: "🛒 منصات الطلب عبر الإنترنت",
+          contactTitle: "اتصال",
+          phone: "هاتف",
+          email: "بريد إلكتروني",
+          backButton: "→ رجوع",
+          swipeIndicator: "→ مرر ←",
+          
+          // Product Features
+          premiumCoffee: "قهوة فاخرة مختارة بعناية",
+          luxuryPackaging: "تغليف فاخر",
+          ecoFriendly: "خيار صديق للبيئة",
+          packaging: "التعبئة والتغليف",
+          corkLidJar: "برطمان زجاجي بغطاء فلين",
+          easyUse: "سهل الاستخدام",
+          economicPackage: "عبوة اقتصادية",
+          selectedBeans: "حبوب مختارة",
+          convenience: "الراحة",
+          oneTouch: "تحضير بلمسة واحدة",
+          naturalContent: "محتوى طبيعي",
+          creamyTexture: "قوام كريمي",
+          perfectDissolution: "ذوبان مثالي",
+
+          // Feature Details
+          tubeFeature1: "تم إنتاج القهوة الحبيبية داخل كل أنبوب من حبوب مختارة بعناية. هذا الاختيار الدقيق يعد برائحة غنية ومذاق ناعم.",
+          tubeFeature2: "الأنابيب الزجاجية الأنيقة والمتينة تضيف أناقة لطقوس قهوتك. هذا العرض الفاخر يأخذ منتجك إلى المستوى التالي في قطاع القهوة السريعة.",
+          tubeFeature3: "الأنابيب الزجاجية التي نستخدمها صديقة للبيئة أكثر بكثير من الأكياس البلاستيكية التي تستخدم لمرة واحدة ويمكن إعادة تدويرها بسهولة. احمِ الطبيعة أثناء اختيار الجودة.",
+          tubeFeature4: "كل صندوق قهوة لووا أنيق يحتوي على 6 (6 × 2 جم) أنابيب قهوة زجاجية. لراحة البيع بالجملة، تأتي كل كرتونة رئيسية بإجمالي 12 صندوق منتج (72 أنبوبًا). اجمع بين الجودة والعملية والحساسية البيئية في أناقة الزجاج مع صندوق قهوة لووا الأنبوبية.",
+          
+          jarFeature1: "نكهة من حبوب مختارة بعناية\nكل حبيبة في هذا المرطبان ليست مجرد قهوة عادية. تم الحصول عليها من المزيج المثالي لحبوب البن عالية الجودة المختارة بعناية.",
+          jarFeature2: "لمسة فاخرة\nتحدث قهوة لووا فرقًا ليس فقط بمذاقها ولكن أيضًا بجمالياتها. مصممة لحماية قهوتك بأفضل طريقة وإضافة أناقة لمطبخك.",
+          jarFeature3: "سهولة الاستخدام مع تصميم مرطبان واسع الفم. يمكنك أخذها بسهولة بملعقة وتحضير الكمية التي تريدها.",
+          jarFeature4: "تغليف اقتصادي مناسب لاحتياجات مختلفة مع خيارات 100 جم و 200 جم.",
+          
+          capsuleFeature1: "في صميم قهوتنا حبوب أرابيكا المزروعة على ارتفاعات عالية، مختارة بعناية من أفضل المزارع في العالم.",
+          capsuleFeature2: "كبسولات لووا متوافقة تمامًا مع آلات نسبريسو®. وصل إلى إسبريسو ذواقة بجودة احترافية في راحة منزلك بضغطة زر واحدة.",
+          capsuleFeature3: "قهوة مقاسة تمامًا في كل كبسولة. فرصة لتحضير قهوة بجودة احترافية بلمسة واحدة.",
+          
+          milkFeature1: "منتج من مسحوق حليب طبيعي 100٪، لا يحتوي على محليات صناعية أو مواد حافظة. نكهة حليب نقية.",
+          milkFeature2: "يضيف ملمسًا كريميًا وناعمًا عند إضافته لقهوتك. يخلق رغوة بجودة باريستا.",
+          milkFeature3: "ذوبان مثالي في المشروبات الساخنة والباردة. لا يتكتل، يوفر خليطًا متجانسًا."
+        },
+        ru: {
+          // Header
+          products: "Продукты",
+          passion: "Страсть",
+          about: "О нас",
+          contact: "Связаться с нами",
+          
+          // Hero Section
+          heroTitle: "ОТКРОЙТЕ ЗАМЕЧАТЕЛЬНЫЕ МОМЕНТЫ",
+          heroSubtitle: "Мы видим кофе не просто как напиток, а как ритуал, который делает моменты ценными. Каждая туба - это больше, чем обычный растворимый кофе; в ее дизайне элегантность, а в кофе забота.",
+          buyNow: "Купить сейчас 🛒",
+          
+          // Coffee Section
+          coffeeVarieties: "СОРТА КОФЕ LUWA",
+          
+          // Products
+          tubeCoffee: "КОФЕ LUWA В ТУБАХ",
+          tubeDetails: "Роскошный, практичный и экологичный опыт кофе на одну порцию в стеклянной упаковке Для ценителей кофе, которые ценят качество и ищут альтернативу обычному кофе в пакетиках...",
+          
+          jarCoffee: "КОФЕ LUWA В БАНКЕ",
+          jarDetails: "Премиальный опыт растворимого кофе с роскошью и элегантностью Забудьте об обычном растворимом кофе. Кофе Luwa поднимает ваше удовольствие от растворимого кофе на высший уровень. Мы разработали кофе Luwa 100г как премиальный продукт, который сочетает роскошь и заботу как в содержании, так и в упаковке.",
+          
+          capsuleCoffee: "КАПСУЛЬНЫЙ КОФЕ LUWA",
+          capsuleDetails: "Наш капсульный кофе, специально разработанный для современных кофемашин, предлагает идеально отмеренный опыт кофе в каждой капсуле.",
+          
+          milkPowder: "СУХОЕ МОЛОКО LUWA",
+          milkDetails: "Наше премиальное сухое молоко, которое делает ваш кофе кремовым и вкусным, обогащает ваш кофейный опыт натуральным молочным ароматом.",
+          
+          // Passion Section
+          passionTitle: "LUWA COFFEE - Элегантная сторона кофе",
+          passionText1: "Поднимите опыт гостеприимства в гостиничных номерах, где комфорт встречается с эстетикой. Премиальный растворимый кофе, подаваемый в специальных стеклянных тубах LUWA COFFEE, превращает простой момент кофе в престижный опыт.",
+          passionText2: "Каждая деталь разработана так, чтобы ваши гости чувствовали себя 'особенными':",
+          passionFeature1: "Элегантные стеклянные тубы, отражающие свет",
+          passionFeature2: "Прозрачная и гигиеничная презентация",
+          passionFeature3: "Элегантность в каждой комнате, отличие в каждом глотке",
+          passionText3: "Предложите вашим гостям не просто кофе, а эстетическое прикосновение. LUWA COFFEE - Роскошь в каждом глотке",
+          
+          // About Section
+          ourStory: "Наша история",
+          storyText1: "Все началось на кофейной плантации в далекой стране. Молодая девушка, просыпающаяся с первым светом рассвета, собирала кофейные зерна вручную. Каждое зерно было отражением терпения, труда и любви к кофе.",
+          storyText2: "Как LUWA COFFEE, мы хотели принести этот труд и историю в городскую жизнь. Потому что кофе - это не просто напиток, это опыт, который делает каждый момент ценным.",
+          storyText3: "Наш растворимый кофе, хранящийся в элегантных стеклянных тубах, переносит вас в душу кофейной плантации одним глотком. Этот опыт, в сочетании с элегантностью современного дизайна, создает роскошную культуру гостеприимства в отелях, офисах и домах.",
+          storyText4: "LUWA - это великое путешествие, скрытое в маленькой тубе. Каждый глоток - история. Каждая история становится воспоминанием.",
+          
+          // Footer
+          ourCoffee: "НАШ КОФЕ",
+          whoWeAre: "КТО МЫ",
+          tubeCoffeeFooter: "Растворимый кофе в тубах",
+          jarCoffeeFooter: "Растворимый кофе в банке",
+          capsuleCoffeeFooter: "Капсульный кофе",
+          milkPowderFooter: "Сухое молоко",
+          ourStoryFooter: "Наша история",
+          contactUs: "Связаться с нами",
+          footerDescription: "Специализируемся на растворимом кофе, предлагая гарантию идеального вкуса для каждой чашки.",
+          privacyPolicy: "Политика конфиденциальности",
+          userTerms: "Пользовательские условия",
+          allRights: "2024 LUWA Coffee. Все права защищены.",
+          
+          // Modals
+          purchaseOptions: "Варианты покупки",
+          onlineOrder: "Онлайн заказ",
+          onlineOrderDesc: "Закажите сейчас с сайтов электронной коммерции",
+          wholesale: "Оптовая продажа",
+          wholesaleDesc: "Получите оптовую цену для вашего бизнеса",
+          onlinePlatforms: "🛒 Платформы онлайн заказов",
+          contactTitle: "Контакт",
+          phone: "Телефон",
+          email: "Электронная почта",
+          backButton: "← Назад",
+          swipeIndicator: "← Проведите →",
+          
+          // Product Features
+          premiumCoffee: "Тщательно отобранный премиальный кофе",
+          luxuryPackaging: "Роскошная упаковка",
+          ecoFriendly: "Экологичный выбор",
+          packaging: "Упаковка",
+          corkLidJar: "Стеклянная банка с пробковой крышкой",
+          easyUse: "Простота использования",
+          economicPackage: "Экономичная упаковка",
+          selectedBeans: "Отборные зерна",
+          convenience: "Удобство",
+          oneTouch: "Приготовление одним нажатием",
+          naturalContent: "Натуральный состав",
+          creamyTexture: "Кремовая текстура",
+          perfectDissolution: "Идеальное растворение",
+
+          // Feature Details
+          tubeFeature1: "Гранулированный кофе внутри каждой тубы произведен из тщательно отобранных зерен. Этот тщательный отбор обещает богатый аромат и мягкий вкус.",
+          tubeFeature2: "Стильные и прочные стеклянные тубы придают элегантность вашему кофейному ритуалу. Эта роскошная презентация выводит ваш продукт на новый уровень в сегменте растворимого кофе.",
+          tubeFeature3: "Стеклянные тубы, которые мы используем, намного экологичнее одноразовых пластиковых пакетиков и легко перерабатываются. Защищайте природу, выбирая качество.",
+          tubeFeature4: "Каждая стильная коробка кофе Luwa содержит 6 (6 x 2 г) стеклянных туб с кофе. Для удобства оптовой торговли каждая мастер-коробка поставляется с 12 коробками продукта (72 тубы). Сочетайте качество, практичность и экологическую чувствительность в элегантности стекла с коробкой кофе Luwa в тубах.",
+          
+          jarFeature1: "Вкус из тщательно отобранных зерен\nКаждая гранула в этой банке - это не просто обычный кофе. Она была получена из идеального сочетания тщательно отобранных, высококачественных кофейных зерен.",
+          jarFeature2: "Премиальное прикосновение\nКофе Luwa отличается не только своим вкусом, но и эстетикой. Разработан для наилучшей защиты вашего кофе и придания элегантности вашей кухне.",
+          jarFeature3: "Простота использования благодаря дизайну банки с широким горлышком. Вы можете легко взять его ложкой и приготовить нужное количество.",
+          jarFeature4: "Экономичная упаковка, подходящая для различных нужд с вариантами 100 г и 200 г.",
+          
+          capsuleFeature1: "В основе нашего кофе лежат зерна арабики, выращенные на больших высотах, тщательно отобранные с лучших ферм мира.",
+          capsuleFeature2: "Капсулы Luwa полностью совместимы с машинами Nespresso®. Получите гурманский эспрессо профессионального качества в комфорте вашего дома одним нажатием кнопки.",
+          capsuleFeature3: "Идеально отмеренный кофе в каждой капсуле. Возможность приготовить кофе профессионального качества одним касанием.",
+          
+          milkFeature1: "Произведено из 100% натурального сухого молока, не содержит искусственных подсластителей или консервантов. Вкус чистого молока.",
+          milkFeature2: "Придает кремовую и мягкую текстуру при добавлении в ваш кофе. Создает пену качества бариста.",
+          milkFeature3: "Идеальная растворимость в горячих и холодных напитках. Не комкуется, обеспечивает однородную смесь."
+        }
+      };
+
+      // Language functionality
+      let currentLang = localStorage.getItem('language') || 'tr';
+
+      function translatePage(lang) {
+        currentLang = lang;
+        localStorage.setItem('language', lang);
+        
+        const t = translations[lang];
+        
+        // Update HTML lang attribute
+        document.documentElement.lang = lang;
+        
+        // Update direction for Arabic
+        if (lang === 'ar') {
+          document.body.dir = 'rtl';
+        } else {
+          document.body.dir = 'ltr';
+        }
+        
+        // Update all translatable elements
+        document.querySelectorAll('[data-translate]').forEach(el => {
+          const key = el.getAttribute('data-translate');
+          if (t[key]) {
+            el.textContent = t[key];
+          }
+        });
+        
+        // If a feature detail is currently active, update that detail to the selected language
+        document.querySelectorAll('.feature.active-feature').forEach(f => {
+          const detailKey = f.getAttribute('data-translate-detail');
+          const currentSlide = f.closest('.carousel-slide');
+          const productDetailsElement = currentSlide && currentSlide.querySelector('[id^="product-details"]');
+          if (detailKey && productDetailsElement && translations[lang] && translations[lang][detailKey]) {
+            productDetailsElement.textContent = translations[lang][detailKey];
+          }
+        });
+
+        // Update active language in dropdown
+        document.querySelectorAll('.language-option').forEach(option => {
+          if (option.getAttribute('data-lang') === lang) {
+            option.classList.add('active');
+          } else {
+            option.classList.remove('active');
+          }
+        });
+      }
+
+      // Language selector functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const languageToggle = document.getElementById('languageToggle');
+        const languageDropdown = document.getElementById('languageDropdown');
+        const languageOptions = document.querySelectorAll('.language-option');
+        
+        // Toggle dropdown
+        languageToggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          languageDropdown.classList.toggle('active');
+        });
+        
+        // Select language
+        languageOptions.forEach(option => {
+          option.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const lang = this.getAttribute('data-lang');
+            translatePage(lang);
+            languageDropdown.classList.remove('active');
+          });
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!languageToggle.contains(e.target) && !languageDropdown.contains(e.target)) {
+            languageDropdown.classList.remove('active');
+          }
+        });
+        
+        // Initialize with saved language
+        translatePage(currentLang);
+      });
+
       // Header shrinking on scroll
       window.addEventListener("scroll", function () {
         const header = document.querySelector("header");
@@ -815,11 +1454,18 @@ LUWA COFFEE – Her Yudumda Lüks</p>
 
         clickableFeatures.forEach((feature) => {
           feature.addEventListener("click", function () {
-            const detail = this.getAttribute("data-detail");
+            const detailKey = this.getAttribute("data-translate-detail");
+            const rawDetail = this.getAttribute("data-detail");
             const currentSlide = this.closest(".carousel-slide");
             const productDetailsElement = currentSlide.querySelector(
               '[id^="product-details"]'
             );
+
+            // Determine detail text, prefer translations
+            let detailText = rawDetail || "";
+            if (detailKey && translations[currentLang] && translations[currentLang][detailKey]) {
+              detailText = translations[currentLang][detailKey];
+            }
 
             // Add click animation
             this.style.transform = "scale(0.95)";
@@ -832,7 +1478,7 @@ LUWA COFFEE – Her Yudumda Lüks</p>
             productDetailsElement.style.transform = "translateY(-10px)";
 
             setTimeout(() => {
-              productDetailsElement.textContent = detail;
+              productDetailsElement.textContent = detailText;
               productDetailsElement.style.opacity = "1";
               productDetailsElement.style.transform = "translateY(0)";
 
@@ -851,13 +1497,11 @@ LUWA COFFEE – Her Yudumda Lüks</p>
         });
 
         // Reset to default details when slide changes
-        const originalDetails = {
-          tup: "Lüks, Pratik ve Cam Ambalajda Çevreci Tek Porsiyonluk Kahve Deneyimi Sıradan poşet kahvelere bir alternatif arayan, kaliteye önem veren kahve tutkunları için... ",
-          kavanoz:
-            "Sıradan granül kahveleri unutun. Luwa Coffee, anlık kahve keyfinizi en üst seviyeye taşıyor.Luwa Coffee 100 Gr Granül Kahve'yi, hem içerik hem de ambalaj olarak lüksü ve özeni bir araya getiren premium bir ürün olarak tasarladık.",
-          kapsul:
-            "Luwa Kapsül Kahve ​Sadece En İyi Kahveyi İsteyenler İçin. ​Luwa, size zahmetsizce mükemmel bir kahve deneyimi sunar. Kaliteden ödün vermeden günlük ritüelini sadeleştirmek isteyen kahve gurmeleri için tasarlanmıştır.",
-          sut: "Luwa Süt Tozu ​Kahvenizi Kremsi ve Lezzetli Hale Getiren Premium Süt Tozu ​Kahvenizi kremsi ve lezzetli hale getiren premium süt tozumuz, doğal süt aroması ile kahve deneyiminizi zenginleştirir.",
+        const originalDetailKeys = {
+          tup: 'tubeDetails',
+          kavanoz: 'jarDetails',
+          kapsul: 'capsuleDetails',
+          sut: 'milkDetails'
         };
 
         // Override the showSlide function to reset details
@@ -878,8 +1522,11 @@ LUWA COFFEE – Her Yudumda Lüks</p>
               const features =
                 activeSlide.querySelectorAll(".feature.clickable");
 
-              if (detailsElement && originalDetails[productType]) {
-                detailsElement.textContent = originalDetails[productType];
+              if (detailsElement && originalDetailKeys[productType]) {
+                const key = originalDetailKeys[productType];
+                if (translations[currentLang] && translations[currentLang][key]) {
+                  detailsElement.textContent = translations[currentLang][key];
+                }
               }
 
               // Remove active class from all features
