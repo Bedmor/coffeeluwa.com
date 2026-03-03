@@ -57,21 +57,47 @@
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<!-- Preloader -->
+<div id="preloader" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background-dark transition-all duration-700">
+    <div class="flex flex-col items-center animate-pulse">
+        <img src="assets/logo.png" alt="LUWA Logo" class="w-16 h-16 object-contain mb-4" />
+        <h2 class="text-primary text-2xl font-bold tracking-tighter uppercase">LUWA COFFEE</h2>
+    </div>
+</div>
 <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
-<header class="fixed top-0 z-50 w-full border-b border-primary/20 bg-background-dark/80 backdrop-blur-md px-6 md:px-20 py-4 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="text-primary flex items-center">
-<img src="assets/logo.png" alt="LUWA Logo" class="w-8 h-8 object-contain" />
+<header class="fixed top-0 z-50 w-full border-b border-primary/20 bg-background-dark/80 backdrop-blur-md transition-all">
+<div class="px-6 md:px-20 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+        <div class="text-primary flex items-center">
+            <img src="assets/logo.png" alt="LUWA Logo" class="w-8 h-8 object-contain" />
+        </div>
+        <h2 class="text-primary text-xl font-bold tracking-tighter uppercase hidden sm:block">LUWA COFFEE</h2>
+    </div>
+    <nav class="hidden md:flex items-center gap-8">
+        <a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="#concept">Konsept</a>
+        <a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="#collections">Koleksiyonlar</a>
+        <a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="javascript:document.getElementById('hotels').scrollIntoView({ behavior: 'smooth' })">Oteller İçin</a>
+        <a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="#faq">SSS</a>
+        <a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="#contact">İletişim</a>
+    </nav>
+    <div class="flex items-center gap-4">
+        <button onclick="openModal()" class="hidden md:block bg-primary hover:bg-primary/90 text-background-dark px-6 py-2 rounded-lg text-sm font-bold transition-all transform hover:scale-105">Satın Al</button>
+        <button id="mobileMenuBtn" class="md:hidden text-primary p-2 hover:text-white transition-colors" onclick="toggleMobileMenu()">
+            <span class="material-symbols-outlined text-3xl">menu</span>
+        </button>
+    </div>
 </div>
-<h2 class="text-primary text-xl font-bold tracking-tighter uppercase">LUWA COFFEE</h2>
+<!-- Mobile Menu Panel -->
+<div id="mobileMenu" class="absolute top-full left-0 w-full bg-background-dark/95 backdrop-blur-3xl border-b border-primary/20 hidden flex-col py-4 px-6 shadow-2xl md:hidden overflow-hidden transition-all duration-300 origin-top opacity-0 -translate-y-4">
+    <div class="flex flex-col gap-4">
+        <a class="text-slate-300 hover:text-primary text-lg font-medium transition-colors pb-2 border-b border-primary/10" href="#concept" onclick="toggleMobileMenu()">Konsept</a>
+        <a class="text-slate-300 hover:text-primary text-lg font-medium transition-colors pb-2 border-b border-primary/10" href="#collections" onclick="toggleMobileMenu()">Koleksiyonlar</a>
+        <a class="text-slate-300 hover:text-primary text-lg font-medium transition-colors pb-2 border-b border-primary/10" href="javascript:document.getElementById('hotels').scrollIntoView({ behavior: 'smooth' }); toggleMobileMenu();">Oteller İçin</a>
+        <a class="text-slate-300 hover:text-primary text-lg font-medium transition-colors pb-2 border-b border-primary/10" href="#faq" onclick="toggleMobileMenu()">SSS</a>
+        <a class="text-slate-300 hover:text-primary text-lg font-medium transition-colors pb-2" href="#contact" onclick="toggleMobileMenu()">İletişim</a>
+        <button onclick="toggleMobileMenu(); openModal();" class="bg-primary text-background-dark px-6 py-4 rounded-xl text-lg font-bold transition-all w-full mt-2 tracking-wide shadow-lg">Satın Al</button>
+    </div>
 </div>
-<nav class="hidden md:flex items-center gap-10">
-<a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="#concept">Konsept</a>
-<a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="#collections">Koleksiyonlar</a>
-<a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="javascript:document.getElementById('hotels').scrollIntoView({ behavior: 'smooth' })">Oteller İçin</a>
-<a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="#contact">İletişim</a>
-</nav>
-<button onclick="openModal()" class="bg-primary hover:bg-primary/90 text-background-dark px-6 py-2 rounded-lg text-sm font-bold transition-all transform hover:scale-105">Satın Al</button>
 </header>
 <main class="flex-1 pt-20">
 <section class="relative h-[90vh] flex items-center justify-center px-6 overflow-hidden">
@@ -193,6 +219,59 @@
 </div>
 </div>
 </section>
+
+<!-- SSS Section -->
+<section class="py-24 bg-background-light dark:bg-background-dark/30 border-t border-primary/10 reveal" id="faq">
+<div class="max-w-4xl mx-auto px-6 md:px-20">
+    <div class="text-center mb-16 space-y-4">
+        <h2 class="text-primary text-sm font-bold tracking-widest uppercase">Merak Edilenler</h2>
+        <h3 class="text-4xl md:text-5xl font-bold">Sıkça Sorulan <span class="text-primary">Sorular</span></h3>
+    </div>
+    
+    <div class="space-y-4">
+        <details class="group bg-background-light/5 border border-primary/10 rounded-2xl cursor-pointer hover:border-primary/30 transition-all">
+            <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-lg hover:text-primary transition-colors">
+                <span class="pr-6 text-white group-open:text-primary transition-colors">Minimum toptan sipariş miktarınız (ana koli) nedir?</span>
+                <span class="transition group-open:rotate-180 material-symbols-outlined text-primary">keyboard_arrow_down</span>
+            </summary>
+            <div class="text-slate-400 group-open:animate-fadeIn px-6 pb-6 mt-[-10px]">
+                <p>Oteller, konaklama tesisleri ve kurumsal işletmeler için minimum sipariş miktarımız 1 ana kolidir. Lüks oda içi kahve servislerinizi (in-room dining) eksiksiz sunabilmeniz için hacimli alımlarda özel iskonto oranlarımız mevcuttur.</p>
+            </div>
+        </details>
+
+        <details class="group bg-background-light/5 border border-primary/10 rounded-2xl cursor-pointer hover:border-primary/30 transition-all">
+            <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-lg hover:text-primary transition-colors">
+                <span class="pr-6 text-white group-open:text-primary transition-colors">İşletmemize özel kahve sunum standı yapıyor musunuz?</span>
+                <span class="transition group-open:rotate-180 material-symbols-outlined text-primary">keyboard_arrow_down</span>
+            </summary>
+            <div class="text-slate-400 group-open:animate-fadeIn px-6 pb-6 mt-[-10px]">
+                <p>Evet, VIP otel odaları ve lüks işletmeleriniz için konsepte tam uyum sağlayan kaliteli malzemelerden üretilmiş (ahşap) markaya özel kahve sunum standı çözümleri tasarlıyoruz.</p>
+            </div>
+        </details>
+
+        <details class="group bg-background-light/5 border border-primary/10 rounded-2xl cursor-pointer hover:border-primary/30 transition-all">
+            <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-lg hover:text-primary transition-colors">
+                <span class="pr-6 text-white group-open:text-primary transition-colors">Tüp kahvelerinizin ve süt tozunun raf ömrü ne kadardır?</span>
+                <span class="transition group-open:rotate-180 material-symbols-outlined text-primary">keyboard_arrow_down</span>
+            </summary>
+            <div class="text-slate-400 group-open:animate-fadeIn px-6 pb-6 mt-[-10px]">
+                <p>Tasarımımız olan hava geçirmez lüks cam tüplerimiz, granül kahve ve süt tozunun nem ve dış etkenlerden etkilenmesini engelleyerek tazeliğini ilk günkü gibi hapseder. Ürünlerimizin raf ömrü üretim tarihinden itibaren <strong class="text-white">24 ay</strong> şeklindedir.</p>
+            </div>
+        </details>
+
+        <details class="group bg-background-light/5 border border-primary/10 rounded-2xl cursor-pointer hover:border-primary/30 transition-all">
+            <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-lg hover:text-primary transition-colors">
+                <span class="pr-6 text-white group-open:text-primary transition-colors">Kendi markam için özel üretim (White Label) mümkün mü?</span>
+                <span class="transition group-open:rotate-180 material-symbols-outlined text-primary">keyboard_arrow_down</span>
+            </summary>
+            <div class="text-slate-400 group-open:animate-fadeIn px-6 pb-6 mt-[-10px]">
+                <p>Yüksek hacimli ve devamlılığı olan B2B partnerlik anlaşmalarında, cam tüplerin üzerine kurumsal tesisinizin veya markanızın logosunu entegre etme imkanı sunuyoruz. Satış ekibimiz bu konuda detaylı ön görüşme yapmaktan memnuniyet duyacaktır.</p>
+            </div>
+        </details>
+    </div>
+</div>
+</section>
+
 <section class="py-24 bg-background-light dark:bg-background-dark/50 border-y border-primary/10 reveal" id="contact">
 <div class="max-w-5xl mx-auto px-6 md:px-20 text-center flex flex-col items-center justify-center">
 <div class="space-y-8 max-w-2xl">
@@ -350,6 +429,36 @@
 
     document.querySelectorAll('.reveal').forEach((elem) => {
         observer.observe(elem);
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenu = document.getElementById('mobileMenu');
+    function toggleMobileMenu() {
+        if (mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+            // Small delay for fade-in effect
+            setTimeout(() => {
+                mobileMenu.classList.remove('opacity-0', '-translate-y-4');
+            }, 10);
+        } else {
+            mobileMenu.classList.add('opacity-0', '-translate-y-4');
+            setTimeout(() => {
+                mobileMenu.classList.remove('flex');
+                mobileMenu.classList.add('hidden');
+            }, 300);
+        }
+    }
+
+    // Preloader Logic
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        setTimeout(() => {
+            preloader.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                preloader.remove();
+            }, 700);
+        }, 800); // 800ms initial wait for premium feeling
     });
 </script>
 </body></html>
