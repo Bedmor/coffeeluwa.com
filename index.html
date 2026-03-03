@@ -3,13 +3,54 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>LUWA Coffee — Harika Anları Keşfet</title>
-<meta name="description" content="LUWA Coffee ile kahveyi bir ritüele dönüştürün. Lüks cam tüplerde sunulan premium granül kahve ve süt tozu ile anı değerli kılın."/>
-<meta name="keywords" content="LUWA Coffee, kahve, tüp kahve, süt tozu, premium kahve, granül kahve, lüks sunum, sakarya kahve toptan"/>
+<title>LUWA Coffee — Lüks Tüp Kahve ve Süt Tozu Deneyimi</title>
+<meta name="description" content="LUWA Coffee ile kahveyi sıradan bir içecekten bir ritüele dönüştürün. Oteller, kurumsal alanlar ve bireysel keyif için lüks cam tüplerde sunulan premium granül kahve ve süt tozu."/>
+<meta name="keywords" content="LUWA Coffee, lüks kahve, tüp kahve, süt tozu, premium kahve, granül kahve, otel oda içi kahve, sakarya kahve toptan, B2B kahve, kurumsal kahve tedariki"/>
 <meta name="author" content="LUWA Coffee"/>
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://coffeeluwa.com/" />
+
+<!-- Open Graph / Social Media -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://coffeeluwa.com/" />
+<meta property="og:title" content="LUWA Coffee — Premium Kahve Deneyimi" />
+<meta property="og:description" content="Tasarımında zarafet, içindeki kahvede özen var. Lüks otel odaları ve konsept mekanlar için tasarlandı." />
+<meta property="og:image" content="https://coffeeluwa.com/assets/desk.png" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://coffeeluwa.com/" />
+<meta property="twitter:title" content="LUWA Coffee — Premium Kahve Deneyimi" />
+<meta property="twitter:description" content="Lüks cam tüplerde sunulan olağanüstü granül kahve. Otelinizin misafir deneyimini yükseltin." />
+<meta property="twitter:image" content="https://coffeeluwa.com/assets/desk.png" />
+
+<!-- Structured Data (JSON-LD) for Local Business & Brand -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "LUWA Coffee",
+  "url": "https://coffeeluwa.com",
+  "logo": "https://coffeeluwa.com/assets/logo.png",
+  "image": "https://coffeeluwa.com/assets/hero.jpg",
+  "description": "Lüks cam tüplerde sunulan premium granül kahve ve süt tozu üreticisi.",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "info@coffeeluwa.com",
+    "contactType": "customer service",
+    "availableLanguage": "Turkish"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Sakarya",
+    "addressCountry": "TR"
+  }
+}
+</script>
+
 <link rel="icon" type="image/png" href="assets/logo.png" />
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
@@ -22,7 +63,8 @@
                         "background-dark": "#2e4a2f",
                     },
                     fontFamily: {
-                        "display": ["Oswald", "sans-serif"]
+                        "display": ["Oswald", "sans-serif"],
+                        "sans": ["Montserrat", "sans-serif"]
                     },
                     borderRadius: {
                         "DEFAULT": "0.25rem",
@@ -36,8 +78,20 @@
     </script>
 <style>
         body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        h1, h2, h3, h4, .font-display, .uppercase {
             font-family: 'Oswald', sans-serif;
         }
+        
+        /* Modern Details Marker Hide */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+
         .glass-effect {
             background: rgba(198, 168, 91, 0.05);
             backdrop-filter: blur(8px);
@@ -74,7 +128,6 @@
         <h2 class="text-primary text-xl font-bold tracking-tighter uppercase hidden sm:block">LUWA COFFEE</h2>
     </div>
     <nav class="hidden md:flex items-center gap-8">
-        <a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="#concept">Konsept</a>
         <a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="#collections">Koleksiyonlar</a>
         <a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="javascript:document.getElementById('hotels').scrollIntoView({ behavior: 'smooth' })">Oteller İçin</a>
         <a class="text-slate-300 hover:text-primary text-sm font-medium transition-colors" href="#faq">SSS</a>
@@ -90,7 +143,6 @@
 <!-- Mobile Menu Panel -->
 <div id="mobileMenu" class="absolute top-full left-0 w-full bg-background-dark/95 backdrop-blur-3xl border-b border-primary/20 hidden flex-col py-4 px-6 shadow-2xl md:hidden overflow-hidden transition-all duration-300 origin-top opacity-0 -translate-y-4">
     <div class="flex flex-col gap-4">
-        <a class="text-slate-300 hover:text-primary text-lg font-medium transition-colors pb-2 border-b border-primary/10" href="#concept" onclick="toggleMobileMenu()">Konsept</a>
         <a class="text-slate-300 hover:text-primary text-lg font-medium transition-colors pb-2 border-b border-primary/10" href="#collections" onclick="toggleMobileMenu()">Koleksiyonlar</a>
         <a class="text-slate-300 hover:text-primary text-lg font-medium transition-colors pb-2 border-b border-primary/10" href="javascript:document.getElementById('hotels').scrollIntoView({ behavior: 'smooth' }); toggleMobileMenu();">Oteller İçin</a>
         <a class="text-slate-300 hover:text-primary text-lg font-medium transition-colors pb-2 border-b border-primary/10" href="#faq" onclick="toggleMobileMenu()">SSS</a>
@@ -100,12 +152,12 @@
 </div>
 </header>
 <main class="flex-1 pt-20">
+<!-- Parallax Hero Section -->
 <section class="relative h-[90vh] flex items-center justify-center px-6 overflow-hidden">
-<div class="absolute inset-0 z-0">
-<div class="absolute inset-0 bg-gradient-to-b from-background-dark/40 via-background-dark/60 to-background-dark z-10"></div>
-<img alt="Luxury hotel room with premium coffee service" class="w-full h-full object-cover" data-alt="Luxury hotel room with premium coffee service" src="assets/hero.jpg"/>
+<div class="absolute inset-0 z-0 h-[120vh] -top-[10vh] w-full parallax-bg" style="background-image: url('assets/hero.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="absolute inset-0 bg-gradient-to-b from-background-dark/40 via-background-dark/60 to-background-dark z-10"></div>
 </div>
-<div class="relative z-20 text-center max-w-4xl mx-auto space-y-8">
+<div class="relative z-20 text-center max-w-4xl mx-auto space-y-8 parallax-content">
 <div class="inline-block px-4 py-1 border border-primary/40 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase">Harika Anları Keşfet</div>
 <h1 class="text-5xl md:text-8xl font-bold text-white leading-[1.1] tracking-tight">Kahve <br/> <span class="text-primary italic">Tutkusu</span></h1>
 <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">Biz kahveyi sadece bir içecek değil, anı değerli kılan bir ritüel olarak görüyoruz. Tasarımında zarafet, içindeki kahvede özen vardır.</p>
@@ -115,42 +167,7 @@
 </div>
 </div>
 </section>
-<section class="py-24 px-6 md:px-20 max-w-7xl mx-auto reveal" id="concept">
-<div class="grid md:grid-cols-2 gap-16 items-center">
-<div class="space-y-6">
-<h2 class="text-primary text-sm font-bold tracking-widest uppercase">İnovasyonumuz</h2>
-<h3 class="text-4xl md:text-5xl font-bold leading-tight">Her Yudumda <span class="text-primary">Mükemmellik</span></h3>
-<p class="text-slate-400 text-lg leading-relaxed">Luwa Coffee, yalnızca lezzetiyle değil, estetiğiyle de fark yaratır. Kahvenizi en iyi şekilde korumak ve mutfağınıza şıklık katmak için tasarlandı.</p>
-<div class="grid grid-cols-1 gap-6 pt-8">
-<div class="flex items-start gap-4 p-4 rounded-xl glass-effect">
-<span class="material-symbols-outlined text-primary text-3xl">verified</span>
-<div>
-<h4 class="font-bold text-white mb-1">Premium Kahve</h4>
-<p class="text-slate-400 text-sm">Özenle seçilmiş, yüksek kaliteli kahve çekirdeklerinin mükemmel birleşiminden elde edildi.</p>
-</div>
-</div>
-<div class="flex items-start gap-4 p-4 rounded-xl glass-effect">
-<span class="material-symbols-outlined text-primary text-3xl">scale</span>
-<div>
-<h4 class="font-bold text-white mb-1">Kolay Kullanım</h4>
-<p class="text-slate-400 text-sm">Pratik paketleme ve zarif kullanım, kahve deneyiminizi en üst seviyeye taşır.</p>
-</div>
-</div>
-<div class="flex items-start gap-4 p-4 rounded-xl glass-effect">
-<span class="material-symbols-outlined text-primary text-3xl">eco</span>
-<div>
-<h4 class="font-bold text-white mb-1">Çevreci Tercih</h4>
-<p class="text-slate-400 text-sm">Kullandığımız cam tüpler çevrecidir ve kolaylıkla geri dönüştürülebilir. Doğayı koruyun.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="relative">
-<div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full"></div>
-<img alt="Sleek glass test tubes filled with coffee beans" class="relative rounded-2xl w-full aspect-[4/5] object-cover border border-primary/20" data-alt="Sleek glass test tubes filled with coffee beans" src="assets/desk.png"/>
-</div>
-</div>
-</section>
+
 <section class="py-24 px-6 md:px-20 max-w-7xl mx-auto reveal" id="hotels">
 <div class="text-center mb-16 space-y-4">
 <h2 class="text-primary text-sm font-bold tracking-widest uppercase">Partner Programı</h2>
@@ -460,5 +477,23 @@
             }, 700);
         }, 800); // 800ms initial wait for premium feeling
     });
+
+    // Parallax Scrolling Effect
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxBg = document.querySelector('.parallax-bg');
+        const parallaxContent = document.querySelector('.parallax-content');
+        
+        if (parallaxBg && scrolled < window.innerHeight) {
+            // Arkaplan resmi daha yavaş (0.4 hızında) aşağı kaysın
+            parallaxBg.style.transform = `translateY(${scrolled * 0.4}px)`;
+            // İçerikteki yazılar hafifçe transparanlaşıp yukarı doğru kaysın (derinlik hissi)
+            if (parallaxContent) {
+                parallaxContent.style.transform = `translateY(${scrolled * 0.2}px)`;
+                parallaxContent.style.opacity = 1 - (scrolled / window.innerHeight) * 1.5;
+            }
+        }
+    });
+
 </script>
 </body></html>
