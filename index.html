@@ -90,16 +90,36 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  .forest-noise {
+    background-image: url("assets/noise-light.png");
+    background-size: 90px 90px;
+  }
+
   h1, h2, h3, .font-serif {
     font-family: "Cormorant Garamond", Georgia, serif;
   }
 
-  /* Subtle luxury surface glow */
+  /* Seamless warm-parchment studio backdrop matching tubes-burst.jpg */
   .hero-ambient {
+    position: relative;
     background:
-      radial-gradient(60% 55% at 75% 35%, rgba(198, 168, 91, 0.14) 0%, rgba(18, 33, 21, 0) 70%),
-      radial-gradient(50% 50% at 15% 80%, rgba(46, 74, 47, 0.35) 0%, rgba(18, 33, 21, 0) 70%),
-      #122115;
+      radial-gradient(50% 60% at 73% 50%, #ddd0c1 0%, rgba(221, 208, 193, 0.65) 50%, rgba(203, 187, 167, 0) 85%),
+      radial-gradient(70% 80% at 25% 35%, #ded2c4 0%, #cfc0ac 70%, #c4b29c 100%);
+  }
+
+  .hero-ambient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* 49% semi-axes ensure 100% transparency BEFORE reaching any of the 4 image edges */
+  .hero-tubes-blend {
+    -webkit-mask-image: radial-gradient(ellipse 49% 49% at 50% 50%, #000 52%, rgba(0, 0, 0, 0.72) 72%, rgba(0, 0, 0, 0.22) 88%, transparent 100%);
+    mask-image: radial-gradient(ellipse 49% 49% at 50% 50%, #000 52%, rgba(0, 0, 0, 0.72) 72%, rgba(0, 0, 0, 0.22) 88%, transparent 100%);
   }
 
   .gold-hairline {
@@ -189,43 +209,208 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* 6-Tube Stage Transitions (Works across both Mobile tabs and Desktop Scrollytelling) */
+  .story-text-stage,
+  .story-image-stage {
+    display: grid;
+  }
+
+  .story-text-panel {
+    grid-area: 1 / 1;
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Opposing vertical motion: Step 0 exits downward while Step 1 enters from above */
+  #storyStage[data-active-step="0"] [data-stage-text="0"] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #storyStage[data-active-step="0"] [data-stage-text="1"] {
+    opacity: 0;
+    transform: translateY(-36px);
+    pointer-events: none;
+  }
+  #storyStage[data-active-step="1"] [data-stage-text="0"] {
+    opacity: 0;
+    transform: translateY(36px);
+    pointer-events: none;
+  }
+  #storyStage[data-active-step="1"] [data-stage-text="1"] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .story-stage-img {
+    grid-area: 1 / 1;
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  #storyStage[data-active-step="0"] [data-stage-img="0"],
+  #storyStage[data-active-step="1"] [data-stage-img="1"] {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+  #storyStage[data-active-step="0"] [data-stage-img="1"],
+  #storyStage[data-active-step="1"] [data-stage-img="0"] {
+    opacity: 0;
+    transform: scale(1.035);
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .story-text-panel,
+    .story-stage-img {
+      transition: opacity 0.2s linear;
+      transform: none !important;
+    }
+  }
+
+  /* Desktop Sticky Scrollytelling & Proximity Scroll-Snap */
+  @media (min-width: 1024px) {
+    html {
+      scroll-snap-type: y proximity;
+      scroll-padding-top: 5.5rem;
+    }
+
+    .story-anchor {
+      scroll-snap-align: start;
+      scroll-margin-top: 5.5rem;
+    }
+  }
+
+  /* Animated Hamburger Button (3 bars morphing smoothly into X) */
+  .hamburger-bars {
+    position: relative;
+    width: 20px;
+    height: 14px;
+    display: inline-block;
+  }
+
+  .hamburger-bars span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1.75px;
+    border-radius: 9999px;
+    background-color: currentColor;
+    transform-origin: center;
+    transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+  }
+
+  .hamburger-bars span:nth-child(1) { top: 0; }
+  .hamburger-bars span:nth-child(2) { top: 6px; }
+  .hamburger-bars span:nth-child(3) { top: 12px; }
+
+  #mobileMenuBtn[aria-expanded="true"] .hamburger-bars span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  #mobileMenuBtn[aria-expanded="true"] .hamburger-bars span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  #mobileMenuBtn[aria-expanded="true"] .hamburger-bars span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* Animated Mobile Navbar Drawer using @starting-style + allow-discrete */
+  .mobile-drawer {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      display,
+      opacity cubic-bezier(0.4, 0, 0.2, 1),
+      transform cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.22s;
+    transition-behavior: allow-discrete;
+  }
+
+  @starting-style {
+    .mobile-drawer {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+  }
+
+  .mobile-drawer:where([hidden], [data-closing]) {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  .mobile-drawer[hidden] {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-drawer {
+      display: none !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hamburger-bars span {
+      transition-duration: 0.1s;
+    }
+    .mobile-drawer {
+      transform: none;
+      transition-duration: 0.1s;
+    }
+    @starting-style {
+      .mobile-drawer {
+        transform: none;
+      }
+    }
+    .mobile-drawer:where([hidden], [data-closing]) {
+      transform: none;
+    }
+  }
 </style>
 </head>
 
-<body class="bg-forest text-cream selection:bg-primary/30 selection:text-cream overflow-x-hidden">
+<body class="bg-forest text-cream selection:bg-primary/30 selection:text-cream overflow-x-clip">
   <!-- Header -->
-  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b border-primary/15 bg-forest/80 backdrop-blur-xl">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-3.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg">
-        <img src="assets/logo.png" alt="LUWA Coffee Logo" width="36" height="36" class="w-9 h-9 object-contain transition-transform duration-300 group-hover:scale-105"/>
-        <div class="flex flex-col leading-none">
-          <span class="font-serif text-xl md:text-2xl font-semibold tracking-[0.14em] text-primary">LUWA</span>
-          <span class="text-[10px] tracking-[0.35em] text-cream-muted uppercase mt-0.5">Coffee</span>
+  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50">
+    <div class="border-b border-primary/15 bg-forest/90 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+        <a href="#top" class="flex items-center gap-3.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg">
+          <img src="assets/logo.png" alt="LUWA Coffee Logo" width="36" height="36" class="w-9 h-9 object-contain transition-transform duration-300 group-hover:scale-105"/>
+          <div class="flex flex-col leading-none">
+            <span class="font-serif text-xl md:text-2xl font-semibold tracking-[0.14em] text-primary">LUWA</span>
+            <span class="text-[10px] tracking-[0.35em] text-cream-muted uppercase mt-0.5">Coffee</span>
+          </div>
+        </a>
+
+        <nav aria-label="Ana Menü" class="hidden lg:flex items-center gap-8 text-sm font-medium text-cream-muted whitespace-nowrap">
+          <a href="#collections" class="hover:text-primary transition-colors">Koleksiyon</a>
+          <a href="#stands" class="hover:text-primary transition-colors">Sunum Standları</a>
+          <a href="#hotels" class="hover:text-primary transition-colors">Oteller İçin</a>
+          <a href="#faq" class="hover:text-primary transition-colors">SSS</a>
+          <a href="#contact" class="hover:text-primary transition-colors">İletişim</a>
+        </nav>
+
+        <div class="flex items-center gap-3 shrink-0">
+          <button type="button" data-open-purchase class="hidden lg:inline-flex items-center gap-2 whitespace-nowrap bg-primary hover:bg-primary-light text-forest px-5 py-2.5 rounded-full text-xs font-semibold tracking-[0.12em] uppercase transition-all shadow-lg shadow-primary/15 hover:shadow-primary/30">
+            <span>Teklif Al</span>
+            <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_outward</span>
+          </button>
+
+          <button id="mobileMenuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menüyü aç" class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-primary/25 text-primary hover:bg-primary/10 active:scale-95 transition-all">
+            <span class="hamburger-bars" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
         </div>
-      </a>
-
-      <nav aria-label="Ana Menü" class="hidden lg:flex items-center gap-8 text-sm font-medium text-cream-muted whitespace-nowrap">
-        <a href="#collections" class="hover:text-primary transition-colors">Koleksiyon</a>
-        <a href="#stands" class="hover:text-primary transition-colors">Sunum Standları</a>
-        <a href="#hotels" class="hover:text-primary transition-colors">Oteller İçin</a>
-        <a href="#faq" class="hover:text-primary transition-colors">SSS</a>
-        <a href="#contact" class="hover:text-primary transition-colors">İletişim</a>
-      </nav>
-
-      <div class="flex items-center gap-3 shrink-0">
-        <button type="button" data-open-purchase class="hidden lg:inline-flex items-center gap-2 whitespace-nowrap bg-primary hover:bg-primary-light text-forest px-5 py-2.5 rounded-full text-xs font-semibold tracking-[0.12em] uppercase transition-all shadow-lg shadow-primary/15 hover:shadow-primary/30">
-          <span>Teklif Al</span>
-          <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_outward</span>
-        </button>
-
-        <button id="mobileMenuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menüyü aç" class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-primary/25 text-primary hover:bg-primary/10 transition-colors">
-          <span id="mobileMenuIcon" class="material-symbols-outlined text-2xl" aria-hidden="true">menu</span>
-        </button>
       </div>
     </div>
 
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" hidden class="lg:hidden border-t border-primary/15 bg-forest/95 backdrop-blur-2xl px-6 py-6">
+    <!-- Mobile Menu (Outside blurred bar so closing never leaves a blur ghost) -->
+    <div id="mobileMenu" hidden class="mobile-drawer lg:hidden border-b border-primary/15 bg-forest px-6 py-6 shadow-2xl shadow-black/40">
       <nav aria-label="Mobil Menü" class="flex flex-col gap-1">
         <a href="#collections" data-mobile-link class="py-3 text-base font-medium text-cream hover:text-primary border-b border-primary/10 transition-colors">Koleksiyon</a>
         <a href="#stands" data-mobile-link class="py-3 text-base font-medium text-cream hover:text-primary border-b border-primary/10 transition-colors">Sunum Standları</a>
@@ -241,80 +426,65 @@
 
   <main id="top" class="pt-20">
     <!-- Hero Section -->
-    <section class="hero-ambient relative overflow-hidden">
-      <div class="max-w-7xl mx-auto px-6 lg:px-12 py-16 md:py-24 lg:py-28">
-        <div class="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+    <section class="hero-ambient overflow-hidden">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-12 md:py-16 lg:py-16">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-6 items-center">
           <!-- Hero Copy -->
-          <div class="lg:col-span-7 space-y-8">
-            <h1 class="text-5xl sm:text-6xl lg:text-[4.6rem] font-semibold text-cream leading-[1.03] tracking-tight">
+          <div class="lg:col-span-6 space-y-7">
+            <h1 class="text-5xl sm:text-6xl lg:text-[4.5rem] font-semibold text-forest leading-[1.03] tracking-tight">
               Otelinizde Yeni Nesil
-              <span class="block text-primary italic font-normal mt-1">Kahve İkramı</span>
+              <span class="block text-[#7a5a18] italic font-normal mt-1">Kahve İkramı</span>
             </h1>
 
-            <p class="text-base sm:text-lg text-cream-muted max-w-xl leading-relaxed font-light">
+            <p class="text-base sm:text-lg text-[#253827] max-w-xl leading-relaxed font-normal">
               Kahveyi sıradan bir oda ikramından unutulmaz bir ritüele dönüştürün. LUWA Coffee'nin hava geçirmez cam tüp ambalajları ve özel tasarım ahşap standlarıyla misafirlerinize prestijli bir deneyim sunun.
             </p>
 
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
-              <button type="button" data-open-purchase class="inline-flex items-center justify-center gap-2.5 bg-primary hover:bg-primary-light text-forest px-8 py-4 rounded-full text-sm font-semibold tracking-[0.1em] uppercase transition-all shadow-xl shadow-primary/20 hover:shadow-primary/35">
+              <button type="button" data-open-purchase class="h-14 inline-flex items-center justify-center gap-2.5 bg-forest hover:bg-forest-surface text-cream px-8 rounded-full text-sm font-semibold tracking-[0.1em] uppercase transition-all shadow-xl shadow-forest/20">
                 <span>Toptan Teklif Al</span>
                 <span class="material-symbols-outlined text-lg" aria-hidden="true">arrow_forward</span>
               </button>
-              <a href="#collections" class="inline-flex items-center justify-center gap-2 border border-primary/35 hover:border-primary text-cream hover:text-primary px-8 py-4 rounded-full text-sm font-medium tracking-[0.08em] uppercase transition-colors">
+              <a href="#collections" class="h-14 inline-flex items-center justify-center gap-2 border border-forest/35 hover:border-forest text-forest hover:bg-forest/10 px-8 rounded-full text-sm font-semibold tracking-[0.08em] uppercase transition-colors">
                 <span>Koleksiyonu İncele</span>
               </a>
             </div>
 
             <!-- Key Hospitality Specs -->
-            <div class="grid grid-cols-3 gap-6 pt-8 border-t border-primary/15 max-w-lg">
+            <div class="grid grid-cols-3 gap-6 pt-8 border-t border-forest/15 max-w-lg">
               <div>
-                <p class="font-serif text-3xl text-primary font-semibold">24 Ay</p>
-                <p class="text-xs text-cream-muted mt-1 leading-snug">Hava geçirmez cam tüpte tazelik</p>
+                <p class="font-serif text-3xl text-[#7a5a18] font-semibold">24 Ay</p>
+                <p class="text-xs text-[#2c402e] mt-1 leading-snug font-medium">Hava geçirmez cam tüpte tazelik</p>
               </div>
               <div>
-                <p class="font-serif text-3xl text-primary font-semibold">%100</p>
-                <p class="text-xs text-cream-muted mt-1 leading-snug">Geri dönüştürülebilir cam ambalaj</p>
+                <p class="font-serif text-3xl text-[#7a5a18] font-semibold">%100</p>
+                <p class="text-xs text-[#2c402e] mt-1 leading-snug font-medium">Geri dönüştürülebilir cam ambalaj</p>
               </div>
               <div>
-                <p class="font-serif text-3xl text-primary font-semibold">Özel</p>
-                <p class="text-xs text-cream-muted mt-1 leading-snug">Otelinize özel ahşap stand & logo</p>
+                <p class="font-serif text-3xl text-[#7a5a18] font-semibold">Doğal</p>
+                <p class="text-xs text-[#2c402e] mt-1 leading-snug font-medium">Kayın ve ceviz ahşap standlar</p>
               </div>
             </div>
           </div>
 
-          <!-- Hero Editorial Image Composition (LCP) -->
-          <div class="lg:col-span-5 relative">
-            <div class="relative mx-auto max-w-md lg:max-w-none">
-              <!-- Subtle gold frame offset -->
-              <div class="absolute -inset-3 rounded-[2rem] border border-primary/20 pointer-events-none hidden sm:block"></div>
-
-              <button type="button" data-preview-src="assets/showcase/tubes-burst.jpg" data-preview-caption="LUWA Premium Granül Kahve — Cam Tüp Serisi" class="group relative block w-full overflow-hidden rounded-[1.75rem] bg-forest-surface border border-primary/25 shadow-2xl shadow-black/40 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
-                <img
-                  src="assets/showcase/tubes-burst.jpg"
-                  alt="LUWA Coffee premium granül kahve cam tüp ambalajları"
-                  width="767"
-                  height="1024"
-                  fetchpriority="high"
-                  class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                />
-                <div class="absolute inset-0 bg-gradient-to-t from-forest/80 via-transparent to-transparent"></div>
-                <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4">
-                  <div class="backdrop-blur-md bg-forest/75 border border-primary/25 rounded-2xl px-4 py-3">
-                    <p class="text-[10px] tracking-[0.22em] uppercase text-primary font-semibold">Signature Series</p>
-                    <p class="font-serif text-xl text-cream mt-0.5">Premium Granül Kahve</p>
-                  </div>
-                  <span class="w-10 h-10 rounded-full bg-forest/80 border border-primary/30 text-primary flex items-center justify-center backdrop-blur-md group-hover:bg-primary group-hover:text-forest transition-colors" aria-hidden="true">
-                    <span class="material-symbols-outlined text-xl">zoom_in</span>
-                  </span>
-                </div>
-              </button>
-            </div>
+          <!-- Seamless Floating 3D Product Composition (LCP) -->
+          <div class="lg:col-span-6 relative flex justify-center">
+            <button type="button" data-preview-src="assets/showcase/tubes-burst.jpg" data-preview-caption="LUWA Premium Granül Kahve — Cam Tüp Serisi" class="group relative block w-full max-w-lg lg:max-w-xl text-left cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest rounded-3xl">
+              <img
+                src="assets/showcase/tubes-burst.jpg"
+                alt="LUWA Coffee premium granül kahve cam tüp ambalajları"
+                width="767"
+                height="1024"
+                fetchpriority="high"
+                class="hero-tubes-blend w-full aspect-[4/5] object-contain transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+            </button>
           </div>
         </div>
       </div>
 
       <!-- Luxury Pillar Strip -->
-      <div class="border-y border-primary/15 bg-forest-surface/60">
+      <div class="forest-noise border-y border-primary/15 bg-forest-surface">
         <div class="max-w-7xl mx-auto px-6 lg:px-12 py-7 grid grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="flex items-center gap-3.5">
             <span class="w-10 h-10 rounded-full bg-primary/10 border border-primary/25 text-primary flex items-center justify-center shrink-0">
@@ -356,114 +526,137 @@
       </div>
     </section>
 
-    <!-- Collection Section -->
-    <section id="collections" class="py-24 lg:py-32 scroll-reveal">
+    <!-- Collection Section: Sticky Scrollytelling 6-Tube Showcase -->
+    <section id="collections" class="py-20 lg:py-28">
       <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div class="scroll-reveal flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
           <div class="space-y-3 max-w-2xl">
             <p class="text-primary text-xs font-semibold tracking-[0.26em] uppercase">LUWA Koleksiyonu</p>
             <h2 class="text-4xl sm:text-5xl font-semibold text-cream leading-tight">
-              Cam Tüpte <span class="text-primary italic font-normal">Kusursuz Ritüel</span>
+              6 Tüp, <span class="text-primary italic font-normal">Sunumdan İçeriğe</span>
             </h2>
           </div>
           <p class="text-cream-muted text-sm sm:text-base max-w-md leading-relaxed">
-            Sıradan poşet ambalajlar yerine, ilk bakışta fark yaratan cam tüp serimizle odalarınıza ve kurumsal ağırlama alanlarınıza zarafet katın.
+            6'lı ahşap sunum panosundan cam tüplerin içindeki kahve ve süt tozu formüllerine uzanan deneyimi inceleyin.
           </p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Product 1: Real Macro Tubes -->
-          <article class="group rounded-3xl bg-forest-surface border border-primary/15 hover:border-primary/40 overflow-hidden transition-all duration-300 flex flex-col">
-            <button type="button" data-preview-src="assets/showcase/real-tubes-macro.jpg" data-preview-caption="LUWA Coffee Premium & LUWA Creamate — Gerçek Ürün Detayı" class="relative overflow-hidden aspect-[4/5] w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
-              <img
-                src="assets/showcase/real-tubes-macro.jpg"
-                alt="LUWA Coffee Premium granül kahve ve LUWA Creamate kahve beyazlatıcısı cam tüpleri"
-                width="768"
-                height="1024"
-                loading="lazy"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-forest-surface via-transparent to-transparent opacity-70"></div>
-              <span class="absolute top-4 right-4 w-9 h-9 rounded-full bg-forest/75 border border-primary/30 text-primary flex items-center justify-center backdrop-blur-md opacity-90 group-hover:bg-primary group-hover:text-forest transition-colors" aria-hidden="true">
-                <span class="material-symbols-outlined text-lg">zoom_in</span>
-              </span>
-            </button>
-            <div class="p-7 flex-1 flex flex-col justify-between space-y-4">
-              <div>
-                <p class="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary mb-2">İkili Klasik Set</p>
-                <h3 class="text-2xl font-semibold text-cream">Tüp Kahve & Creamate</h3>
-                <p class="text-sm text-cream-muted mt-2.5 leading-relaxed">
-                  Özenle seçilmiş granül kahve ve 3g tek porsiyonluk ipeksi kahve beyazlatıcısı, lazer işlemeli ahşap yuvalarda kusursuz durur.
-                </p>
-              </div>
-              <div class="pt-3 border-t border-primary/10 flex items-center justify-between text-xs text-cream-muted">
-                <span>Net 2g / 3g Cam Tüp</span>
-                <span class="text-primary font-medium">24 Ay Raf Ömrü</span>
-              </div>
-            </div>
-          </article>
+        <!-- Scrollytelling Track (175vh on desktop so sticky stage never clips mid-scroll) -->
+        <div id="storyTrack" class="relative lg:h-[175vh]">
+          <!-- Snap Anchor Planes (Desktop) -->
+          <div id="story-anchor-1" tabindex="-1" aria-hidden="true" class="story-anchor hidden lg:block absolute top-0 left-0 w-full h-[85vh] pointer-events-none"></div>
+          <div id="story-anchor-2" tabindex="-1" aria-hidden="true" class="story-anchor hidden lg:block absolute top-[85vh] left-0 w-full h-[90vh] pointer-events-none"></div>
 
-          <!-- Product 2: Full 6-Tube Range Fan -->
-          <article class="group rounded-3xl bg-forest-surface border border-primary/15 hover:border-primary/40 overflow-hidden transition-all duration-300 flex flex-col">
-            <button type="button" data-preview-src="assets/showcase/tubes-fan.jpg" data-preview-caption="LUWA Tam İkram Serisi — Granül Kahve, Süt Tozu ve Siyah Çay" class="relative overflow-hidden aspect-[4/5] w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
-              <img
-                src="assets/showcase/tubes-fan.jpg"
-                alt="LUWA Coffee granül kahve, süt tozu ve siyah çay cam tüp çeşitleri"
-                width="772"
-                height="1024"
-                loading="lazy"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-forest-surface via-transparent to-transparent opacity-60"></div>
-              <span class="absolute top-4 right-4 w-9 h-9 rounded-full bg-forest/75 border border-primary/30 text-primary flex items-center justify-center backdrop-blur-md opacity-90 group-hover:bg-primary group-hover:text-forest transition-colors" aria-hidden="true">
-                <span class="material-symbols-outlined text-lg">zoom_in</span>
-              </span>
-            </button>
-            <div class="p-7 flex-1 flex flex-col justify-between space-y-4">
-              <div>
-                <p class="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary mb-2">Geniş İkram Yelpazesi</p>
-                <h3 class="text-2xl font-semibold text-cream">Kahve, Süt Tozu & Çay</h3>
-                <p class="text-sm text-cream-muted mt-2.5 leading-relaxed">
-                  Sadece kahve değil; kahve beyazlatıcısı ve premium yaprak siyah çay seçenekleriyle misafirlerinizin her damak tadına hitap edin.
-                </p>
-              </div>
-              <div class="pt-3 border-t border-primary/10 flex items-center justify-between text-xs text-cream-muted">
-                <span>Hava Geçirmez Kapak</span>
-                <span class="text-primary font-medium">Çoklu Seçenek</span>
-              </div>
-            </div>
-          </article>
+          <!-- Pinned Sticky Showcase Stage -->
+          <div id="storyStage" data-active-step="0" class="lg:sticky lg:top-24 lg:h-[calc(100vh-7rem)] lg:flex lg:items-center">
+            <div class="w-full grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <!-- Left Column: Pinned Cross-Fading 4:5 Image Stage (Contrasts Hero) -->
+              <div class="lg:col-span-6">
+                <div class="story-image-stage max-w-md lg:max-w-[min(29rem,calc((100vh-9.5rem)*0.8))] mx-auto">
+                  <!-- Image 0: 6-Slot Clean Board (Sunum First) -->
+                  <button type="button" data-stage-img="0" data-preview-src="assets/showcase/kahve-kosesi-6lu.jpg?v=4" data-preview-caption="Sunum — 6'lı Ahşap Sunum Panosu" class="story-stage-img group relative block w-full overflow-hidden rounded-3xl bg-forest-surface border border-primary/25 shadow-2xl shadow-black/50 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+                    <img
+                      src="assets/showcase/kahve-kosesi-6lu.jpg?v=4"
+                      alt="LUWA 6'lı ahşap sunum panosunda Classic, Creamate ve Dark Roast cam tüpler"
+                      width="896"
+                      height="1120"
+                      loading="lazy"
+                      class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-forest/80 via-transparent to-transparent"></div>
+                    <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-forest/85 border border-primary/30 text-primary text-[11px] font-semibold tracking-[0.2em] uppercase backdrop-blur-md">
+                      Sunum
+                    </span>
+                    <span class="absolute top-4 right-4 w-9 h-9 rounded-full bg-forest/80 border border-primary/30 text-primary flex items-center justify-center backdrop-blur-md group-hover:bg-primary group-hover:text-forest transition-colors" aria-hidden="true">
+                      <span class="material-symbols-outlined text-lg">zoom_in</span>
+                    </span>
+                  </button>
 
-          <!-- Product 3: 6-Tube Kahve Köşesi -->
-          <article class="group rounded-3xl bg-forest-surface border border-primary/15 hover:border-primary/40 overflow-hidden transition-all duration-300 flex flex-col">
-            <button type="button" data-preview-src="assets/showcase/kahve-kosesi-6lu.jpg" data-preview-caption="6'lı Kahve Köşesi — Doğal Kayın Ağacı ve Pirinç Detaylı Sunum" class="relative overflow-hidden aspect-[4/5] w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
-              <img
-                src="assets/showcase/kahve-kosesi-6lu.jpg"
-                alt="LUWA 6'lı Kahve Köşesi ahşap sunum standı"
-                width="575"
-                height="715"
-                loading="lazy"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-forest-surface via-transparent to-transparent opacity-60"></div>
-              <span class="absolute top-4 right-4 w-9 h-9 rounded-full bg-forest/75 border border-primary/30 text-primary flex items-center justify-center backdrop-blur-md opacity-90 group-hover:bg-primary group-hover:text-forest transition-colors" aria-hidden="true">
-                <span class="material-symbols-outlined text-lg">zoom_in</span>
-              </span>
-            </button>
-            <div class="p-7 flex-1 flex flex-col justify-between space-y-4">
-              <div>
-                <p class="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary mb-2">Komple Oda Çözümü</p>
-                <h3 class="text-2xl font-semibold text-cream">6'lı Kahve Köşesi</h3>
-                <p class="text-sm text-cream-muted mt-2.5 leading-relaxed">
-                  2 kahve, 2 süt tozu ve 2 siyah çay tüpünü tek bir estetik gövdede buluşturan pirinç plaketli özel tasarım ahşap sunum tablası.
-                </p>
+                  <!-- Image 1: Tubes Fan (İçerik Second) -->
+                  <button type="button" data-stage-img="1" data-preview-src="assets/showcase/tubes-fan.jpg?v=2" data-preview-caption="İçerik — Kahve Çeşitleri & Süt Tozu" class="story-stage-img group relative block w-full overflow-hidden rounded-3xl bg-forest-surface border border-primary/25 shadow-2xl shadow-black/50 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+                    <img
+                      src="assets/showcase/tubes-fan.jpg?v=2"
+                      alt="LUWA Coffee 6 adet açık cam tüp: Classic Arabica, Creamate süt tozu ve Dark Roast kahve granülleri"
+                      width="896"
+                      height="1120"
+                      loading="lazy"
+                      class="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-forest/80 via-transparent to-transparent"></div>
+                    <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-forest/85 border border-primary/30 text-primary text-[11px] font-semibold tracking-[0.2em] uppercase backdrop-blur-md">
+                      İçerik
+                    </span>
+                    <span class="absolute top-4 right-4 w-9 h-9 rounded-full bg-forest/80 border border-primary/30 text-primary flex items-center justify-center backdrop-blur-md group-hover:bg-primary group-hover:text-forest transition-colors" aria-hidden="true">
+                      <span class="material-symbols-outlined text-lg">zoom_in</span>
+                    </span>
+                  </button>
+                </div>
               </div>
-              <div class="pt-3 border-t border-primary/10 flex items-center justify-between text-xs text-cream-muted">
-                <span>Doğal Kayın & Pirinç</span>
-                <span class="text-primary font-medium">Özel Üretim</span>
+
+              <!-- Right Column: Opposing Text Stage + Clean Blend Details -->
+              <div class="lg:col-span-6 space-y-6">
+                <!-- Anchor Step Nav (Visible on BOTH Mobile and Desktop) -->
+                <div class="flex justify-center lg:justify-start">
+                  <nav aria-label="6 tüplü vitrin adımları" class="inline-flex items-center gap-2 p-1.5 rounded-full bg-forest-surface border border-primary/20">
+                    <a href="#story-anchor-1" data-step-nav="0" aria-current="location" class="story-nav-link px-5 py-2 rounded-full text-xs font-semibold tracking-[0.12em] uppercase transition-all bg-primary text-forest">
+                      Sunum
+                    </a>
+                    <a href="#story-anchor-2" data-step-nav="1" class="story-nav-link px-5 py-2 rounded-full text-xs font-semibold tracking-[0.12em] uppercase transition-all text-cream-muted hover:text-cream">
+                      İçerik
+                    </a>
+                  </nav>
+                </div>
+
+                <!-- Opposing Vertical Text Transition Stage -->
+                <div class="story-text-stage">
+                  <!-- Step 0 Text: Sunum First -->
+                  <article data-stage-text="0" class="story-text-panel rounded-3xl bg-forest-surface/85 border border-primary/20 p-6 sm:p-8 space-y-3.5">
+                    <span class="block text-[11px] font-semibold tracking-[0.24em] uppercase text-primary">Masaüstü Sunum</span>
+                    <h3 class="text-3xl sm:text-4xl font-semibold text-cream leading-tight">
+                      6'lı Ahşap Sunum Panosu
+                    </h3>
+                    <p class="text-sm sm:text-base text-cream-muted leading-relaxed">
+                      6 cam tüp, pirinç LUWA plakalı doğal kayın ahşap panodaki yuvalara oturarak otel odasında düzenli, hijyenik ve prestijli bir vitrin oluşturur.
+                    </p>
+                  </article>
+
+                  <!-- Step 1 Text: İçerik Second -->
+                  <article data-stage-text="1" class="story-text-panel rounded-3xl bg-forest-surface/85 border border-primary/20 p-6 sm:p-8 space-y-3.5">
+                    <span class="block text-[11px] font-semibold tracking-[0.24em] uppercase text-primary">İçerik Formülü</span>
+                    <h3 class="text-3xl sm:text-4xl font-semibold text-cream leading-tight">
+                      Kahve Çeşitleri & Süt Tozu
+                    </h3>
+                    <p class="text-sm sm:text-base text-cream-muted leading-relaxed">
+                      Classic Arabica granül kahve, ipeksi 2g LUWA Creamate süt tozu ve yoğun Dark Roast espresso tüpleri hava geçirmez camda ilk günkü tazeliğini korur.
+                    </p>
+                  </article>
+                </div>
+
+                <!-- Clean Blend Description Switcher -->
+                <div class="rounded-2xl bg-forest-surface/90 border border-primary/20 p-5 sm:p-6 space-y-4">
+                  <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Tüp çeşitleri">
+                    <button type="button" data-tube-pair="classic" aria-pressed="true" class="tube-pair-btn px-4 py-2 rounded-full border text-xs font-semibold transition-all bg-primary text-forest border-primary">
+                      Classic Arabica
+                    </button>
+                    <button type="button" data-tube-pair="creamate" aria-pressed="false" class="tube-pair-btn px-4 py-2 rounded-full border text-xs font-semibold transition-all bg-forest text-cream-muted border-primary/20 hover:border-primary/50 hover:text-cream">
+                      LUWA Creamate
+                    </button>
+                    <button type="button" data-tube-pair="dark" aria-pressed="false" class="tube-pair-btn px-4 py-2 rounded-full border text-xs font-semibold transition-all bg-forest text-cream-muted border-primary/20 hover:border-primary/50 hover:text-cream">
+                      Dark Roast
+                    </button>
+                  </div>
+
+                  <div class="pt-3 border-t border-primary/15">
+                    <p id="pairEyebrow" class="text-[10px] font-semibold tracking-[0.2em] uppercase text-primary">Klasik Seri</p>
+                    <h4 id="pairTitle" class="font-serif text-xl font-semibold text-cream mt-0.5">LUWA Classic Arabica Granül Kahve</h4>
+                    <p id="pairDesc" class="text-xs sm:text-sm text-cream-muted mt-1 leading-relaxed">
+                      Dengeli asiditeye ve sıcak karamel notalarına sahip %100 seçkin granül kahve. Gün boyu her fincanda aynı taze aromayı verir.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
@@ -485,24 +678,24 @@
 
         <!-- Bento Showcase Grid -->
         <div class="grid lg:grid-cols-12 gap-6">
-          <!-- Large Left Card: Angled Brass Stand -->
-          <div class="lg:col-span-7 group relative rounded-3xl overflow-hidden border border-primary/20 bg-forest-surface">
-            <button type="button" data-preview-src="assets/showcase/kahve-kosesi-angled.jpg" data-preview-caption="Pirinç Ayaklı Eğimli Kahve Köşesi Standı" class="block w-full h-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+          <!-- Left Tall Card (1 col wide, 2 rows tall): Walnut Suite Stand -->
+          <div class="lg:col-span-5 group relative rounded-3xl overflow-hidden border border-primary/20 bg-forest-surface">
+            <button type="button" data-preview-src="assets/showcase/walnut-stand-suite.jpg" data-preview-caption="Ceviz & Pirinç Plakalı Lüks Süit Standı" class="block w-full h-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
               <img
-                src="assets/showcase/kahve-kosesi-angled.jpg"
-                alt="Pirinç ayaklı eğimli ahşap Kahve Köşesi sunum standı"
-                width="859"
-                height="1024"
+                src="assets/showcase/walnut-stand-suite.jpg"
+                alt="Koyu ceviz ahşap ve pirinç plakalı süit kahve sunum standı"
+                width="473"
+                height="940"
                 loading="lazy"
-                class="w-full h-[26rem] lg:h-[36rem] object-cover transition-transform duration-700 group-hover:scale-105"
+                class="w-full h-[28rem] lg:h-[36rem] object-cover object-[center_45%] transition-transform duration-700 group-hover:scale-105"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-forest via-forest/25 to-transparent"></div>
-              <div class="absolute bottom-0 inset-x-0 p-7 sm:p-9 flex items-end justify-between gap-4">
+              <div class="absolute inset-0 bg-gradient-to-t from-forest/95 via-forest/40 to-transparent"></div>
+              <div class="absolute bottom-0 inset-x-0 p-7 sm:p-8 flex items-end justify-between gap-4">
                 <div class="max-w-md">
-                  <p class="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary mb-2">Masaüstü VIP Sunum</p>
-                  <h3 class="text-3xl font-semibold text-cream">Pirinç Ayaklı Kahve Köşesi</h3>
+                  <p class="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary mb-2">Süit & Executive</p>
+                  <h3 class="text-3xl font-semibold text-cream">Ceviz & Pirinç Stand</h3>
                   <p class="text-sm text-cream-muted mt-2 leading-relaxed">
-                    Eğimli ergonomik açısı, altın pirinç ayağı ve entegre çay bölmesiyle misafirlerinize zahmetsiz ve şık bir karşılama sunar.
+                    Koyu ceviz ahşap dokusu ve pirinç plaka detayıyla süit odalara prestijli bir dokunuş katar.
                   </p>
                 </div>
                 <span class="w-11 h-11 rounded-full bg-forest/80 border border-primary/35 text-primary flex items-center justify-center shrink-0 backdrop-blur-md group-hover:bg-primary group-hover:text-forest transition-colors" aria-hidden="true">
@@ -512,25 +705,27 @@
             </button>
           </div>
 
-          <!-- Right Column: 2 Stacked Cards -->
-          <div class="lg:col-span-5 grid gap-6">
-            <!-- Top Right: Overhead Welcome Tray -->
+          <!-- Right Column (wider, 2 stacked cards): Angled Brass Stand + Overhead Welcome Tray -->
+          <div class="lg:col-span-7 grid gap-6">
+            <!-- Top Right: Angled Brass Stand -->
             <div class="group relative rounded-3xl overflow-hidden border border-primary/20 bg-forest-surface">
-              <button type="button" data-preview-src="assets/showcase/hotel-tray-overhead.jpg" data-preview-caption="Kettle & Fincan Bölmeli Otel Karşılama Tepsisi" class="block w-full h-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+              <button type="button" data-preview-src="assets/showcase/kahve-kosesi-angled.jpg?v=3" data-preview-caption="Pirinç Ayaklı Eğimli Kahve Köşesi Standı" class="block w-full h-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
                 <img
-                  src="assets/showcase/hotel-tray-overhead.jpg"
-                  alt="Kettle ve fincan yuvalı doğal kayın ağacı otel karşılama tepsisi"
-                  width="767"
-                  height="1024"
+                  src="assets/showcase/kahve-kosesi-angled.jpg?v=3"
+                  alt="Pirinç ayaklı eğimli ahşap Kahve Köşesi sunum standı"
+                  width="1280"
+                  height="714"
                   loading="lazy"
-                  class="w-full h-[17rem] lg:h-[17.25rem] object-cover transition-transform duration-700 group-hover:scale-105"
+                  class="w-full h-[17rem] lg:h-[17.25rem] object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-forest via-forest/30 to-transparent"></div>
-                <div class="absolute bottom-0 inset-x-0 p-6 flex items-end justify-between gap-4">
-                  <div>
-                    <p class="text-[10px] font-semibold tracking-[0.22em] uppercase text-primary mb-1">Tam Entegre Tepsi</p>
-                    <h3 class="text-2xl font-semibold text-cream">Otel Karşılama Tepsisi</h3>
-                    <p class="text-xs text-cream-muted mt-1">Kettle, fincan ve 4'lü tüp bölmeli CNC tasarım</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-forest/95 via-forest/45 to-transparent"></div>
+                <div class="absolute bottom-0 inset-x-0 p-6 sm:p-7 flex items-end justify-between gap-4">
+                  <div class="max-w-lg">
+                    <p class="text-[10px] font-semibold tracking-[0.22em] uppercase text-primary mb-1">Masaüstü VIP Sunum</p>
+                    <h3 class="text-2xl font-semibold text-cream">Pirinç Ayaklı Kahve Köşesi</h3>
+                    <p class="text-xs sm:text-sm text-cream-muted mt-1">
+                      Eğimli ergonomik açısı, altın pirinç ayağı ve entegre ikram bölmesiyle şık bir karşılama sunar.
+                    </p>
                   </div>
                   <span class="w-9 h-9 rounded-full bg-forest/80 border border-primary/30 text-primary flex items-center justify-center shrink-0 backdrop-blur-md group-hover:bg-primary group-hover:text-forest transition-colors" aria-hidden="true">
                     <span class="material-symbols-outlined text-lg">zoom_in</span>
@@ -539,23 +734,23 @@
               </button>
             </div>
 
-            <!-- Bottom Right: Walnut Suite Stand -->
+            <!-- Bottom Right: Overhead Welcome Tray -->
             <div class="group relative rounded-3xl overflow-hidden border border-primary/20 bg-forest-surface">
-              <button type="button" data-preview-src="assets/showcase/walnut-stand-suite.jpg" data-preview-caption="Ceviz & Pirinç Plakalı Lüks Süit Standı" class="block w-full h-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+              <button type="button" data-preview-src="assets/showcase/hotel-tray-overhead.jpg?v=5" data-preview-caption="Kettle, Fincan, Kaşık & Şeker Bölmeli Otel Karşılama Tepsisi" class="block w-full h-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
                 <img
-                  src="assets/showcase/walnut-stand-suite.jpg"
-                  alt="Koyu ceviz ahşap ve pirinç plakalı süit kahve sunum standı"
-                  width="473"
-                  height="940"
+                  src="assets/showcase/hotel-tray-overhead.jpg?v=5"
+                  alt="Kettle, fincan, çay kaşığı, şeker ve 4'lü LUWA tüp yuvalı doğal kayın ağacı otel karşılama tepsisi"
+                  width="1280"
+                  height="714"
                   loading="lazy"
-                  class="w-full h-[17rem] lg:h-[17.25rem] object-cover object-[center_58%] transition-transform duration-700 group-hover:scale-105"
+                  class="w-full h-[17rem] lg:h-[17.25rem] object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-forest via-forest/30 to-transparent"></div>
-                <div class="absolute bottom-0 inset-x-0 p-6 flex items-end justify-between gap-4">
-                  <div>
-                    <p class="text-[10px] font-semibold tracking-[0.22em] uppercase text-primary mb-1">Süit & Executive</p>
-                    <h3 class="text-2xl font-semibold text-cream">Ceviz & Pirinç Stand</h3>
-                    <p class="text-xs text-cream-muted mt-1">Koyu ahşap dokusu ve markaya özel pirinç plaka</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-forest/95 via-forest/35 to-transparent"></div>
+                <div class="absolute bottom-0 inset-x-0 p-6 sm:p-7 flex items-end justify-between gap-4">
+                  <div class="max-w-lg">
+                    <p class="text-[10px] font-semibold tracking-[0.22em] uppercase text-primary mb-1">Tam Entegre Tepsi</p>
+                    <h3 class="text-2xl font-semibold text-cream">Otel Karşılama Tepsisi</h3>
+                    <p class="text-xs sm:text-sm text-cream-muted mt-1">Kettle, fincan, çay kaşığı, şeker ve 4'lü tüp bölmeli CNC tasarım</p>
                   </div>
                   <span class="w-9 h-9 rounded-full bg-forest/80 border border-primary/30 text-primary flex items-center justify-center shrink-0 backdrop-blur-md group-hover:bg-primary group-hover:text-forest transition-colors" aria-hidden="true">
                     <span class="material-symbols-outlined text-lg">zoom_in</span>
@@ -569,7 +764,7 @@
     </section>
 
     <!-- Partner Program / Why LUWA -->
-    <section id="hotels" class="py-24 lg:py-28 bg-forest-surface/70 border-y border-primary/15 scroll-reveal">
+    <section id="hotels" class="forest-noise py-24 lg:py-28 bg-forest-surface/75 border-y border-primary/15 scroll-reveal">
       <div class="max-w-7xl mx-auto px-6 lg:px-12">
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           <!-- Left: Editorial Positioning + Standard vs LUWA Comparison -->
@@ -609,9 +804,9 @@
                   <span class="col-span-4 text-cream font-medium">Tek ölçek, kolay stok & dizilim</span>
                 </div>
                 <div class="grid grid-cols-12 px-6 py-4 items-center gap-2">
-                  <span class="col-span-4 font-medium text-cream">Markalama</span>
-                  <span class="col-span-4 text-cream-muted/70">Standart market markası</span>
-                  <span class="col-span-4 text-cream font-medium">Otele özel White Label & logo</span>
+                  <span class="col-span-4 font-medium text-cream">Prestij</span>
+                  <span class="col-span-4 text-cream-muted/70">Standart market poşeti</span>
+                  <span class="col-span-4 text-cream font-medium">Lüks otel konseptine uyumlu</span>
                 </div>
               </div>
             </div>
@@ -628,7 +823,7 @@
                 loading="lazy"
                 class="w-full aspect-[4/3] lg:aspect-[4/5] object-cover"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-forest via-forest/20 to-transparent"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-forest/95 via-forest/50 to-transparent"></div>
               <div class="absolute bottom-0 inset-x-0 p-7 space-y-3">
                 <p class="font-serif text-2xl sm:text-3xl text-cream leading-snug">
                   “Küçük bir detay, misafirinizin hafızasında büyük bir etki bırakır.”
@@ -674,7 +869,7 @@
               <span class="material-symbols-outlined text-primary transition-transform duration-300 group-open:rotate-180 shrink-0" aria-hidden="true">keyboard_arrow_down</span>
             </summary>
             <div class="px-6 pb-6 text-sm sm:text-base text-cream-muted leading-relaxed border-t border-primary/10 pt-4">
-              Evet, VIP otel odaları ve lüks işletmeleriniz için konsepte tam uyum sağlayan doğal kayın veya ceviz ahşaptan üretilmiş, pirinç detaylı ve markaya özel kahve sunum standı çözümleri tasarlıyoruz.
+              Evet, VIP otel odaları ve lüks işletmeleriniz için konsepte tam uyum sağlayan doğal kayın veya ceviz ahşaptan üretilmiş, pirinç detaylı ahşap kahve sunum standı çözümleri sunuyoruz.
             </div>
           </details>
 
@@ -694,7 +889,7 @@
               <span class="material-symbols-outlined text-primary transition-transform duration-300 group-open:rotate-180 shrink-0" aria-hidden="true">keyboard_arrow_down</span>
             </summary>
             <div class="px-6 pb-6 text-sm sm:text-base text-cream-muted leading-relaxed border-t border-primary/10 pt-4">
-              Yüksek hacimli ve devamlılığı olan B2B partnerlik anlaşmalarında, cam tüplerin ve ahşap standların üzerine kurumsal tesisinizin veya markanızın logosunu entegre etme imkanı sunuyoruz. Satış ekibimiz bu konuda detaylı ön görüşme yapmaktan memnuniyet duyacaktır.
+              Yüksek hacimli ve devamlılığı olan B2B partnerlik anlaşmalarında, cam tüplerin üzerine kurumsal tesisinizin veya markanızın logosunu entegre etme imkanı sunuyoruz. Satış ekibimiz bu konuda detaylı ön görüşme yapmaktan memnuniyet duyacaktır.
             </div>
           </details>
         </div>
@@ -717,17 +912,17 @@
             </p>
 
             <div class="pt-4 flex flex-wrap items-center justify-center gap-3.5">
-              <button type="button" data-open-purchase class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-primary hover:bg-primary-light text-forest px-8 py-4 rounded-full text-sm font-semibold tracking-[0.1em] uppercase transition-all shadow-lg shadow-primary/20">
+              <button type="button" data-open-purchase class="h-14 w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-primary hover:bg-primary-light text-forest px-7 rounded-full text-sm font-semibold tracking-[0.1em] uppercase transition-all shadow-lg shadow-primary/20">
                 <span>Sipariş & Teklif İste</span>
                 <span class="material-symbols-outlined text-lg" aria-hidden="true">mail</span>
               </button>
-              <a href="https://wa.me/905432671210" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-cream px-7 py-4 rounded-full text-sm font-medium transition-colors">
+              <a href="https://wa.me/905432671210" target="_blank" rel="noopener noreferrer" class="h-14 w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-cream px-7 rounded-full text-sm font-medium transition-colors">
                 <svg class="w-5 h-5 text-[#25D366] shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.766.469 3.484 1.344 5l-1.406 5.156 5.281-1.375c1.469.797 3.109 1.219 4.75 1.219 5.516 0 9.969-4.453 9.969-9.969S17.547 2 12.031 2zm5.813 14.125c-.25.703-1.438 1.344-2 1.422-.516.078-1.172.109-1.891-.125-.438-.141-1-.328-1.719-.641-3.016-1.297-4.984-4.344-5.141-4.547-.141-.203-1.219-1.625-1.219-3.109 0-1.484.766-2.203 1.047-2.516.281-.312.609-.391.813-.391.203 0 .406 0 .578.016.188.016.438-.078.688.531.25.609.859 2.094.938 2.25.078.156.125.344.016.547-.094.203-.141.328-.297.5-.156.172-.328.391-.469.516-.156.156-.312.328-.141.641.172.312.781 1.297 1.672 2.094 1.156 1.031 2.125 1.344 2.438 1.5.312.156.484.125.672-.078.188-.203.781-.906.984-1.219.203-.312.422-.266.703-.156.281.109 1.797.844 2.109 1 .312.156.516.234.594.359.078.125.078.734-.172 1.438z"/>
                 </svg>
                 <span>WhatsApp</span>
               </a>
-              <a href="tel:+905432671210" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-primary/30 hover:border-primary text-cream hover:text-primary px-7 py-4 rounded-full text-sm font-medium transition-colors">
+              <a href="tel:+905432671210" class="h-14 w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-primary/30 hover:border-primary text-cream hover:text-primary px-7 rounded-full text-sm font-medium transition-colors">
                 <span class="material-symbols-outlined text-primary text-lg" aria-hidden="true">call</span>
                 <span>+90 543 267 12 10</span>
               </a>
@@ -754,19 +949,19 @@
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-primary/15 bg-forest py-12 px-6 lg:px-12">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-3">
+  <footer class="forest-noise border-t border-primary/15 bg-forest py-12 px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 items-center gap-6 text-center md:text-left">
+      <div class="flex items-center justify-center md:justify-start gap-3">
         <img src="assets/logo.png" alt="LUWA Coffee Logo" width="32" height="32" loading="lazy" class="w-8 h-8 object-contain"/>
         <span class="font-serif text-lg font-semibold tracking-[0.14em] text-cream">LUWA COFFEE</span>
       </div>
 
-      <div class="flex items-center gap-8 text-xs sm:text-sm text-cream-muted">
+      <div class="flex items-center justify-center gap-8 text-xs sm:text-sm text-cream-muted">
         <a href="gizlilik-politikasi.html" class="hover:text-primary transition-colors">Gizlilik Politikası</a>
         <a href="kullanici-sartlari.html" class="hover:text-primary transition-colors">Kullanım Şartları</a>
       </div>
 
-      <p class="text-xs text-cream-muted/70 tracking-[0.14em] uppercase">
+      <p class="text-xs text-cream-muted/70 tracking-[0.14em] uppercase md:text-right">
         © 2026 LUWA COFFEE. Tüm Hakları Saklıdır.
       </p>
     </div>
@@ -857,24 +1052,168 @@
   </dialog>
 
   <script>
-    // Mobile navigation drawer
+    // Animated Mobile Navigation Drawer with Firefox allow-discrete exit fallback
     const mobileMenuBtn = document.getElementById("mobileMenuBtn");
     const mobileMenu = document.getElementById("mobileMenu");
-    const mobileMenuIcon = document.getElementById("mobileMenuIcon");
 
-    function setMobileMenu(open) {
-      mobileMenu.hidden = !open;
+    let supportsDisplayTransition;
+    function canTransitionDisplay() {
+      if (supportsDisplayTransition !== undefined) return supportsDisplayTransition;
+      if (!window.CSS?.supports?.("transition-behavior", "allow-discrete") || !document.body) {
+        return false;
+      }
+      const probe = document.createElement("div");
+      probe.style.cssText = "transition: display 1s allow-discrete !important; display: block;";
+      document.body.appendChild(probe);
+      getComputedStyle(probe).display;
+      probe.style.display = "none";
+      supportsDisplayTransition = getComputedStyle(probe).display === "block";
+      probe.remove();
+      return supportsDisplayTransition;
+    }
+
+    async function setMobileMenu(open) {
       mobileMenuBtn.setAttribute("aria-expanded", String(open));
       mobileMenuBtn.setAttribute("aria-label", open ? "Menüyü kapat" : "Menüyü aç");
-      mobileMenuIcon.textContent = open ? "close" : "menu";
+
+      if (open) {
+        mobileMenu.removeAttribute("data-closing");
+        mobileMenu.hidden = false;
+        return;
+      }
+
+      if (canTransitionDisplay()) {
+        mobileMenu.hidden = true;
+      } else {
+        mobileMenu.setAttribute("data-closing", "");
+      }
+
+      const animations = mobileMenu.getAnimations();
+      if (animations.length > 0) {
+        await Promise.race([
+          Promise.allSettled(animations.map((a) => a.finished)),
+          new Promise((r) => setTimeout(r, 600)),
+        ]);
+      }
+
+      if (mobileMenu.hasAttribute("data-closing")) {
+        mobileMenu.removeAttribute("data-closing");
+        mobileMenu.hidden = true;
+      }
     }
 
     mobileMenuBtn.addEventListener("click", () => {
-      setMobileMenu(mobileMenu.hidden);
+      const isOpen = mobileMenuBtn.getAttribute("aria-expanded") === "true";
+      setMobileMenu(!isOpen);
     });
 
     document.querySelectorAll("[data-mobile-link]").forEach((el) => {
       el.addEventListener("click", () => setMobileMenu(false));
+    });
+
+    // 6-Tube Blend Detail Switcher
+    const TUBE_PAIRS = {
+      classic: {
+        eyebrow: "Klasik Seri",
+        title: "LUWA Classic Arabica Granül Kahve",
+        desc: "Dengeli asiditeye ve sıcak karamel notalarına sahip %100 seçkin granül kahve. Gün boyu her fincanda aynı taze aromayı verir.",
+      },
+      creamate: {
+        eyebrow: "İpeksi Dokunuş",
+        title: "LUWA Creamate Kahve Beyazlatıcısı",
+        desc: "Sıcak kahvede topaklanma yapmadan anında çözünen, ipeksi kıvamlı ve hafif tatlılık dengesine sahip özel formül kahve kreması.",
+      },
+      dark: {
+        eyebrow: "Yoğun Kavrum",
+        title: "LUWA Dark Roast Espresso Granül",
+        desc: "Koyu kavrum seven misafirler için bitter çikolata ve kavruk fındık notaları taşıyan yüksek gövdeli yoğun granül kahve.",
+      },
+    };
+
+    const pairEyebrow = document.getElementById("pairEyebrow");
+    const pairTitle = document.getElementById("pairTitle");
+    const pairDesc = document.getElementById("pairDesc");
+    const pairBtns = document.querySelectorAll(".tube-pair-btn");
+
+    function selectTubePair(pairKey) {
+      const data = TUBE_PAIRS[pairKey];
+      if (!data) return;
+
+      pairEyebrow.textContent = data.eyebrow;
+      pairTitle.textContent = data.title;
+      pairDesc.textContent = data.desc;
+
+      pairBtns.forEach((btn) => {
+        const active = btn.dataset.tubePair === pairKey;
+        btn.setAttribute("aria-pressed", String(active));
+        btn.className = active
+          ? "tube-pair-btn px-4 py-2 rounded-full border text-xs font-semibold transition-all bg-primary text-forest border-primary"
+          : "tube-pair-btn px-4 py-2 rounded-full border text-xs font-semibold transition-all bg-forest text-cream-muted border-primary/20 hover:border-primary/50 hover:text-cream";
+      });
+    }
+
+    document.querySelectorAll("[data-tube-pair]").forEach((el) => {
+      el.addEventListener("click", () => selectTubePair(el.dataset.tubePair));
+    });
+
+    selectTubePair("classic");
+
+    // Sticky Scrollytelling & Snap Step Sync
+    const storyTrack = document.getElementById("storyTrack");
+    const storyStage = document.getElementById("storyStage");
+    const storyNavLinks = document.querySelectorAll("[data-step-nav]");
+    const storyAnchors = [
+      document.getElementById("story-anchor-1"),
+      document.getElementById("story-anchor-2"),
+    ];
+
+    function setStoryStep(stepIdx) {
+      const idx = String(stepIdx);
+      if (storyStage.dataset.activeStep === idx) return;
+      storyStage.dataset.activeStep = idx;
+
+      storyNavLinks.forEach((link) => {
+        const active = link.dataset.stepNav === idx;
+        if (active) {
+          link.setAttribute("aria-current", "location");
+          link.className = "story-nav-link px-5 py-2 rounded-full text-xs font-semibold tracking-[0.12em] uppercase transition-all bg-primary text-forest";
+        } else {
+          link.removeAttribute("aria-current");
+          link.className = "story-nav-link px-5 py-2 rounded-full text-xs font-semibold tracking-[0.12em] uppercase transition-all text-cream-muted hover:text-cream";
+        }
+      });
+    }
+
+    // Native scrollsnapchange when supported, plus scroll-position / IntersectionObserver fallback
+    if ("onscrollsnapchange" in window || "onscrollsnapchange" in HTMLElement.prototype) {
+      document.addEventListener("scrollsnapchange", (event) => {
+        if (event.snapTargetBlock === storyAnchors[0]) setStoryStep(0);
+        else if (event.snapTargetBlock === storyAnchors[1]) setStoryStep(1);
+      });
+    }
+
+    // Also update continuously as the user scrolls past the midpoint of #storyTrack
+    function syncStoryOnScroll() {
+      if (!storyTrack || window.innerWidth < 1024) return;
+      const rect = storyTrack.getBoundingClientRect();
+      const totalScrollable = Math.max(1, rect.height - window.innerHeight * 0.7);
+      const progress = -rect.top / totalScrollable;
+      setStoryStep(progress >= 0.42 ? 1 : 0);
+    }
+
+    window.addEventListener("scroll", syncStoryOnScroll, { passive: true });
+    window.addEventListener("resize", syncStoryOnScroll, { passive: true });
+
+    storyNavLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const step = Number(link.dataset.stepNav);
+        setStoryStep(step);
+        if (window.innerWidth >= 1024) {
+          const target = storyAnchors[step];
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
     });
 
     // Native <dialog> modals
